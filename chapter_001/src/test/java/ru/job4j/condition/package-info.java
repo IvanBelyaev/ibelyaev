@@ -1,5 +1,5 @@
 /**
- * Package for position of point test.
+ * Package for position of point and triangle tests.
  *
  * @author Ivan Belyaev (gh0st84@mail.ru)
  * @version $Id$
