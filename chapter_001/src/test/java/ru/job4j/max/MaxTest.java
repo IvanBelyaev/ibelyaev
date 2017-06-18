@@ -33,4 +33,37 @@ public class MaxTest {
 		int expected = 7;
 		assertThat(methodReturns, is(expected));
 	}
+
+	/**
+	 * Test for the max method with three parameters, when first is max.
+	 */
+	@Test
+	public void whenMaxCompareSevenAndFourAndFiveThenSeven() {
+		Max max = new Max();
+		int methodReturns = max.max(7, 4, 5);
+		int expected = 7;
+		assertThat(methodReturns, is(expected));
+	}
+
+	/**
+	 * Test for the max method with three parameters, when second is max.
+	 */
+	@Test
+	public void whenMaxCompareSevenAndEightAndFiveThenEight() {
+		Max max = new Max();
+		int methodReturns = max.max(7, 8, 5);
+		int expected = 8;
+		assertThat(methodReturns, is(expected));
+	}
+
+	/**
+	 * Test for the max method with three parameters, when third is max.
+	 */
+	@Test
+	public void whenMaxCompareSevenAndEightAndNineThenNine() {
+		Max max = new Max();
+		int methodReturns = max.max(7, 8, 9);
+		int expected = 9;
+		assertThat(methodReturns, is(expected));
+	}
 }
