@@ -13,12 +13,8 @@ public class Factorial {
 	 * @return returns the factorial of a number
 	 */
 	public int calc(int n) {
-		if (n < 2) {
-			return 1;
-		}
-
 		int fact = 1;
-		for (int i = 2; i <= n; i++) {
+		for (int i = 1; i <= n; i++) {
 			fact *= i;
 		}
 		return fact;
