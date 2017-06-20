@@ -19,7 +19,11 @@ public class BoardTest {
 	public void whenPaintWidthThreeHeightThreeThenThreeOnThree() {
 		Board board = new Board();
 		String methodReturns = board.paint(3, 3);
-		String expected = "x x\n x \nx x\n";
+		String expected = String.format("x x%s x %sx x%s",
+			System.getProperty("line.separator"),
+			System.getProperty("line.separator"),
+			System.getProperty("line.separator")
+		);
 		assertThat(methodReturns, is(expected));
 	}
 
@@ -30,7 +34,12 @@ public class BoardTest {
 	public void whenPaintWidthFiveHeightFourThenFiveOnFour() {
 		Board board = new Board();
 		String methodReturns = board.paint(5, 4);
-		String expected = "x x x\n x x \nx x x\n x x \n";
+		String expected = String.format("x x x%s x x %sx x x%s x x %s",
+			System.getProperty("line.separator"),
+			System.getProperty("line.separator"),
+			System.getProperty("line.separator"),
+			System.getProperty("line.separator")
+		);
 		assertThat(methodReturns, is(expected));
 	}
 }

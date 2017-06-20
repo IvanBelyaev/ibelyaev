@@ -1,5 +1,5 @@
 /**
- * Package for loop test.
+ * Package for loop tests.
  *
  * @author Ivan Belyaev (gh0st84@mail.ru)
  * @version $Id$
