@@ -9,16 +9,18 @@ package ru.job4j.tracker;
  */
 public class StartUI {
     /** Storage applications. */
-    private Tracker tracker = new Tracker();
+    private Tracker tracker;
     /** Object input / output. */
     private Input input;
 
     /**
      * The constructor creates the object StarUI.
      * @param input - interface input / output.
+     * @param tracker - storage applications.
      */
-    public StartUI(Input input) {
+    public StartUI(Input input, Tracker tracker) {
         this.input = input;
+        this.tracker = tracker;
     }
 
     /**
@@ -62,7 +64,7 @@ public class StartUI {
      * @param args - the argument is not being used.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput()).init();
+        new StartUI(new ConsoleInput(), new Tracker()).init();
     }
 
     /**
