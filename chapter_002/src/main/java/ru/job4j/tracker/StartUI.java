@@ -27,36 +27,20 @@ public class StartUI {
      * The method executes the main program loop.
      */
     public void init() {
+        MenuTracker menuTracker = new MenuTracker(input, tracker);
+        menuTracker.fillActions();
         boolean flag = true;
-        while (flag) {
-            this.showMenu();
-            String answer = this.input.ask("Select the menu item: ");
-            switch (answer) {
-                case "0":
-                    this.addItem();
-                    break;
-                case "1":
-                    this.showAllItem();
-                    break;
-                case "2":
-                    this.editItem();
-                    break;
-                case "3":
-                    this.deleteItem();
-                    break;
-                case "4":
-                    this.findItemById();
-                    break;
-                case "5":
-                    this.findItemByName();
-                    break;
-                case "6":
-                    flag = false;
-                    break;
-                default:
-                    System.out.println("Error. Try again.");
+        do {
+            menuTracker.show();
+            int key = Integer.valueOf(input.ask("Select the menu item: "));
+            if (key >= 0 && key < 6) {
+                menuTracker.select(key);
+            } else if (key == 6) {
+                flag = false;
+            } else {
+                System.out.println("Error. Try again.");
             }
-        }
+        } while (flag);
     }
 
     /**
