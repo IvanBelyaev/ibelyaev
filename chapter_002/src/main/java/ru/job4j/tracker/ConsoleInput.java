@@ -22,4 +22,29 @@ public class ConsoleInput implements Input {
         System.out.print(question);
         return scanner.nextLine();
     }
+
+    /**
+     * Method requests input from the user and checks them for validity.
+     * @param question - a question to the user.
+     * @param range - the range of possible values.
+     * @return returns the user response.
+     */
+    @Override
+    public int ask(String question, int[] range) {
+        int answer = Integer.valueOf(this.ask(question));
+        boolean contain = false;
+
+        for (int key : range) {
+            if (key == answer) {
+                contain = true;
+                break;
+            }
+        }
+
+        if (contain) {
+            return answer;
+        } else {
+            throw new MenuOutException("Out of menu range.");
+        }
+    }
 }

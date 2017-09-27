@@ -13,4 +13,12 @@ public interface Input {
      * @return returns the user response.
      */
     String ask(String question);
+
+    /**
+     * Method requests input from the user and checks them for validity.
+     * @param question - a question to the user.
+     * @param range - the range of possible values.
+     * @return returns the user response.
+     */
+    int ask(String question, int[] range);
 }

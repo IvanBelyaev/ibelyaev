@@ -31,4 +31,15 @@ public class StubInput implements Input {
         System.out.println(this.answers[this.position]);
         return this.answers[this.position++];
     }
+
+    /**
+     * The method emulates a user survey, giving pre-prepared answers.
+     * @param question - a question to the user.
+     * @param range - the range of possible values.
+     * @return returns the next pre-prepared response.
+     */
+    @Override
+    public int ask(String question, int[] range) {
+        return Integer.valueOf(this.ask(question));
+    }
 }

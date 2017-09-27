@@ -32,13 +32,11 @@ public class StartUI {
         boolean flag = true;
         do {
             menuTracker.show();
-            int key = Integer.valueOf(input.ask("Select the menu item: "));
-            if (key >= 0 && key < 6) {
-                menuTracker.select(key);
-            } else if (key == 6) {
+            int key = input.ask("Select the menu item: ", menuTracker.getRange());
+            if (key == 6) {
                 flag = false;
             } else {
-                System.out.println("Error. Try again.");
+                menuTracker.select(key);
             }
         } while (flag);
     }
@@ -48,7 +46,7 @@ public class StartUI {
      * @param args - the argument is not being used.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 
     /**

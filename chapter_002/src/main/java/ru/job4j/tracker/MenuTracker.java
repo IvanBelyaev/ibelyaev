@@ -43,6 +43,8 @@ public class MenuTracker {
     private Tracker tracker;
     /** A repository of all the action. */
     private UserAction[] actions = new UserAction[6];
+    /** The range of values menu. */
+    private int[] range = new int[7];
 
     /**
      * The constructor creates the object MenuTracker.
@@ -64,6 +66,17 @@ public class MenuTracker {
         this.actions[3] = this.new DeleteItem();
         this.actions[4] = this.new FindItemById();
         this.actions[5] = this.new FindItemByName();
+        for (int i = 0; i < this.actions.length + 1; i++) {
+            this.range[i] = i;
+        }
+    }
+
+    /**
+     * The method returns the range of values menu.
+     * @return returns the range of values menu.
+     */
+    public int[] getRange() {
+        return this.range;
     }
 
     /**
