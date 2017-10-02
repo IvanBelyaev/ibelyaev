@@ -3,15 +3,19 @@ package ru.job4j.tracker;
 /**
  * Class for editing applications.
  */
-class EditItem implements UserAction {
-    @Override
-    public int key() {
-        return 2;
+class EditItem extends BaseAction {
+    /**
+     * The constructor creates the object EditItem.
+     * @param name - the name of the menu item.
+     * @param key - the number of the menu item.
+     */
+    EditItem(String name, int key) {
+        super(name, key);
     }
 
     @Override
-    public String info() {
-        return String.format("%s. %s", this.key(), "Edit item");
+    public int key() {
+        return 2;
     }
 
     @Override
@@ -60,12 +64,12 @@ public class MenuTracker {
      * Method fills the vault of the action.
      */
     public void fillActions() {
-        this.actions[0] = this.new AddItem();
-        this.actions[1] = new MenuTracker.ShowAllItems();
-        this.actions[2] = new EditItem();
-        this.actions[3] = this.new DeleteItem();
-        this.actions[4] = this.new FindItemById();
-        this.actions[5] = this.new FindItemByName();
+        this.actions[0] = this.new AddItem("Add new Item", 0);
+        this.actions[1] = new MenuTracker.ShowAllItems("Show all items", 1);
+        this.actions[2] = new EditItem("Edit item", 2);
+        this.actions[3] = this.new DeleteItem("Delete item", 3);
+        this.actions[4] = this.new FindItemById("Find item by Id", 4);
+        this.actions[5] = this.new FindItemByName("Find items by name", 5);
         for (int i = 0; i < this.actions.length + 1; i++) {
             this.range[i] = i;
         }
@@ -101,15 +105,19 @@ public class MenuTracker {
     /**
      * Class to add applications.
      */
-    private class AddItem implements UserAction {
-        @Override
-        public int key() {
-            return 0;
+    private class AddItem extends BaseAction {
+        /**
+         * The constructor creates the object AddItem.
+         * @param name - the name of the menu item.
+         * @param key - the number of the menu item.
+         */
+        AddItem(String name, int key) {
+            super(name, key);
         }
 
         @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add new Item");
+        public int key() {
+            return 0;
         }
 
         @Override
@@ -124,15 +132,19 @@ public class MenuTracker {
     /**
      * Class to display all applications.
      */
-    private static class ShowAllItems implements UserAction {
-        @Override
-        public int key() {
-            return 1;
+    private static class ShowAllItems extends BaseAction {
+        /**
+         * The constructor creates the object ShowAllItems.
+         * @param name - the name of the menu item.
+         * @param key - the number of the menu item.
+         */
+        ShowAllItems(String name, int key) {
+            super(name, key);
         }
 
         @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Show all items");
+        public int key() {
+            return 1;
         }
 
         @Override
@@ -148,15 +160,19 @@ public class MenuTracker {
     /**
      * Class to remove the application.
      */
-    private class DeleteItem implements UserAction {
-        @Override
-        public int key() {
-            return 3;
+    private class DeleteItem extends BaseAction {
+        /**
+         * The constructor creates the object DeleteItem.
+         * @param name - the name of the menu item.
+         * @param key - the number of the menu item.
+         */
+        DeleteItem(String name, int key) {
+            super(name, key);
         }
 
         @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Delete item");
+        public int key() {
+            return 3;
         }
 
         @Override
@@ -175,15 +191,19 @@ public class MenuTracker {
     /**
      * Class to search for the application ID.
      */
-    private class FindItemById implements UserAction {
-        @Override
-        public int key() {
-            return 4;
+    private class FindItemById extends BaseAction {
+        /**
+         * The constructor creates the object FindItemById.
+         * @param name - the name of the menu item.
+         * @param key - the number of the menu item.
+         */
+        FindItemById(String name, int key) {
+            super(name, key);
         }
 
         @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find item by Id");
+        public int key() {
+            return 4;
         }
 
         @Override
@@ -250,15 +270,19 @@ public class MenuTracker {
     /**
      * Class to search for the application name.
      */
-    private class FindItemByName implements UserAction {
-        @Override
-        public int key() {
-            return 5;
+    private class FindItemByName extends BaseAction {
+        /**
+         * The constructor creates the object FindItemByName.
+         * @param name - the name of the menu item.
+         * @param key - the number of the menu item.
+         */
+        FindItemByName(String name, int key) {
+            super(name, key);
         }
 
         @Override
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find items by name");
+        public int key() {
+            return 5;
         }
 
         @Override
