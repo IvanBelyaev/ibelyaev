@@ -1,17 +1,17 @@
 package ru.job4j.chess;
 
 /**
- * Bishop.
+ * Rook.
  * @author Ivan Belyaev
- * @since 16.11.2017
+ * @since 22.11.2017
  * @version 1.0
  */
-public class Bishop extends Figure {
+public class Rook extends Figure {
     /**
-     * The constructor creates the object Bishop.
+     * The constructor creates the object Rook.
      * @param position - the cell in which the figure.
      */
-    public Bishop(Cell position) {
+    public Rook(Cell position) {
         super(position);
     }
 
@@ -29,17 +29,28 @@ public class Bishop extends Figure {
         int diffX = dist.getX() - x;
         int diffY = dist.getY() - y;
 
-        if (Math.abs(diffX) != Math.abs(diffY)) {
-            throw new ImpossibleMoveException("The bishop can not go there.");
+        if (diffX != 0 && diffY != 0) {
+            throw new ImpossibleMoveException("The rook can not go there.");
         }
 
-        Cell[] wayOfFigure = new Cell[Math.abs(diffX)];
-        int incrementX = diffX / Math.abs(diffX);
-        int incrementY = diffY / Math.abs(diffY);
+        Cell[] wayOfFigure;
+        int lengthOfWay, incrementX, incrementY;
+        if (diffX == 0) {
+            lengthOfWay = Math.abs(diffY);
+            incrementX = diffX;
+            incrementY = diffY / lengthOfWay;
+
+            wayOfFigure = new Cell[lengthOfWay];
+        } else {
+            lengthOfWay = Math.abs(diffX);
+            incrementX = diffX / lengthOfWay;
+            incrementY = diffY;
+
+            wayOfFigure = new Cell[lengthOfWay];
+        }
 
         x += incrementX;
         y += incrementY;
-
         for (int i = 0; i < wayOfFigure.length; i++, x += incrementX, y += incrementY) {
             wayOfFigure[i] = new Cell(x, y);
         }

@@ -8,7 +8,7 @@ package ru.job4j.chess;
  */
 public class Board {
     /** Array of figures mimics a chess Board. */
-    private Figure[] figures = new Figure[64];
+    private Figure[][] figures = new Figure[8][8];
 
 
 
@@ -23,23 +23,21 @@ public class Board {
      */
     public boolean move(Cell source, Cell dist)
             throws ImpossibleMoveException, OccupiedWayException, FigureNotFoundException {
-        int start = source.getX() + source.getY() * 8;
-        int finish = dist.getX() + dist.getY() * 8;
 
-        if (figures[start] == null) {
+        if (figures[source.getX()][source.getY()] == null) {
             throw new FigureNotFoundException("In a given cell figure not found.");
         }
 
-        Cell[] wayOfFigure = figures[start].way(dist);
+        Cell[] wayOfFigure = figures[source.getX()][source.getY()].way(source, dist);
 
         for (Cell cell : wayOfFigure) {
-            if (figures[cell.getX() + cell.getY() * 8] != null) {
+            if (figures[cell.getX()][cell.getY()] != null) {
                 throw new OccupiedWayException("Way of figure is busy.");
             }
         }
 
-        figures[finish] = figures[start];
-        figures[start] = null;
+        figures[dist.getX()][dist.getY()] = figures[source.getX()][source.getY()];
+        figures[source.getX()][source.getY()] = null;
 
         return true;
     }
@@ -47,8 +45,9 @@ public class Board {
     /**
      * The method puts a figure on the chessboard.
      * @param figure - chess figure.
+     * @param cell - the cell in which you want to pose the figure.
      */
-    public void setFigure(Figure figure) {
-        figures[figure.getPosition().getX() + figure.getPosition().getX() * 8] = figure;
+    public void setFigure(Figure figure, Cell cell) {
+        figures[cell.getX()][cell.getY()] = figure;
     }
 }

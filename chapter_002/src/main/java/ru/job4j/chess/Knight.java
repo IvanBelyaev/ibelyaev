@@ -1,17 +1,17 @@
 package ru.job4j.chess;
 
 /**
- * Bishop.
+ * Knight.
  * @author Ivan Belyaev
- * @since 16.11.2017
+ * @since 22.11.2017
  * @version 1.0
  */
-public class Bishop extends Figure {
+public class Knight extends Figure {
     /**
-     * The constructor creates the object Bishop.
+     * The constructor creates the object Knight.
      * @param position - the cell in which the figure.
      */
-    public Bishop(Cell position) {
+    public Knight(Cell position) {
         super(position);
     }
 
@@ -29,19 +29,11 @@ public class Bishop extends Figure {
         int diffX = dist.getX() - x;
         int diffY = dist.getY() - y;
 
-        if (Math.abs(diffX) != Math.abs(diffY)) {
-            throw new ImpossibleMoveException("The bishop can not go there.");
-        }
-
-        Cell[] wayOfFigure = new Cell[Math.abs(diffX)];
-        int incrementX = diffX / Math.abs(diffX);
-        int incrementY = diffY / Math.abs(diffY);
-
-        x += incrementX;
-        y += incrementY;
-
-        for (int i = 0; i < wayOfFigure.length; i++, x += incrementX, y += incrementY) {
-            wayOfFigure[i] = new Cell(x, y);
+        Cell[] wayOfFigure;
+        if ((Math.abs(diffX) == 1 && Math.abs(diffY) == 2) || (Math.abs(diffX) == 2 && Math.abs(diffY) == 1)) {
+            wayOfFigure = new Cell[] {dist};
+        } else {
+            throw new ImpossibleMoveException("The knight can not go there.");
         }
 
         return wayOfFigure;

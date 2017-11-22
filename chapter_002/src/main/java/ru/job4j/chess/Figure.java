@@ -20,17 +20,10 @@ public abstract class Figure {
 
     /**
      * The method returns the path of movement of the figure.
+     * @param source - the cell in which the figure.
      * @param dist - the cell in which you want to go.
      * @return returns the path of movement of the figure.
      * @throws ImpossibleMoveException - throws when a figure cannot go to the specified cell.
      */
-    public abstract Cell[] way(Cell dist) throws ImpossibleMoveException;
-
-    /**
-     * The method returns the position of the figure.
-     * @return returns the position of the figure.
-     */
-    public Cell getPosition() {
-        return position;
-    }
+    public abstract Cell[] way(Cell source, Cell dist) throws ImpossibleMoveException;
 }

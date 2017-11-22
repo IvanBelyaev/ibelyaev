@@ -9,21 +9,21 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * BishopTest.
+ * RookTest.
  * @author Ivan Belyaev
- * @since 16.11.2017
+ * @since 22.11.2017
  * @version 1.0
  */
-public class BishopTest {
+public class RookTest {
     /**
      * The first test for the move method.
      */
     @Test
-    public void whenMoveOneOneToFourFourThenTrue() {
+    public void whenMoveFourFourToFourSixThenTrue() {
         Board board = new Board();
-        Cell start = new Cell(1, 1);
-        Cell finish = new Cell(4, 4);
-        board.setFigure(new Bishop(start), start);
+        Cell start = new Cell(4, 4);
+        Cell finish = new Cell(4, 6);
+        board.setFigure(new Rook(start), start);
         boolean methodReturns = false;
         try {
             methodReturns = board.move(start, finish);
@@ -38,11 +38,11 @@ public class BishopTest {
      * The second test for the move method.
      */
     @Test
-    public void whenMoveFiveFiveToFourOneOneThenTrue() {
+    public void whenMoveFourFourToZeroFourThenTrue() {
         Board board = new Board();
-        Cell start = new Cell(5, 5);
-        Cell finish = new Cell(1, 1);
-        board.setFigure(new Bishop(start), start);
+        Cell start = new Cell(4, 4);
+        Cell finish = new Cell(0, 4);
+        board.setFigure(new Rook(start), start);
         boolean methodReturns = false;
         try {
             methodReturns = board.move(start, finish);
@@ -57,11 +57,11 @@ public class BishopTest {
      * The third test for the move method.
      */
     @Test
-    public void whenMoveFiveFiveToFourFourSixThenTrue() {
+    public void whenMoveFourFourToFourTwoThenTrue() {
         Board board = new Board();
-        Cell start = new Cell(5, 5);
-        Cell finish = new Cell(4, 6);
-        board.setFigure(new Bishop(start), start);
+        Cell start = new Cell(4, 4);
+        Cell finish = new Cell(4, 2);
+        board.setFigure(new Rook(start), start);
         boolean methodReturns = false;
         try {
             methodReturns = board.move(start, finish);
@@ -76,11 +76,11 @@ public class BishopTest {
      * The fourth test for the move method.
      */
     @Test
-    public void whenMoveFiveFiveToSevenThreeThenTrue() {
+    public void whenMoveFourFourToEightFourThenTrue() {
         Board board = new Board();
-        Cell start = new Cell(5, 5);
-        Cell finish = new Cell(7, 3);
-        board.setFigure(new Bishop(start), start);
+        Cell start = new Cell(4, 4);
+        Cell finish = new Cell(7, 4);
+        board.setFigure(new Rook(start), start);
         boolean methodReturns = false;
         try {
             methodReturns = board.move(start, finish);
@@ -95,13 +95,13 @@ public class BishopTest {
      * The fifth test for the move method.
      */
     @Test
-    public void whenMoveFiveFiveToSevenFourThenImpossibleMoveException() {
+    public void whenMoveFiveFiveToSevenSevenThenImpossibleMoveException() {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         Board board = new Board();
         Cell start = new Cell(5, 5);
-        Cell finish = new Cell(7, 4);
-        board.setFigure(new Bishop(start), start);
+        Cell finish = new Cell(7, 7);
+        board.setFigure(new Rook(start), start);
         try {
             board.move(start, finish);
         } catch (ChessException e) {
@@ -109,7 +109,7 @@ public class BishopTest {
         }
         assertThat(
                 out.toString().split(System.getProperty("line.separator"))[0],
-                is("The bishop can not go there.")
+                is("The rook can not go there.")
         );
     }
 
@@ -122,10 +122,11 @@ public class BishopTest {
         System.setOut(new PrintStream(out));
         Board board = new Board();
         Cell start = new Cell(3, 3);
-        Cell other = new Cell(5, 5);
-        Cell finish = new Cell(7, 7);
-        board.setFigure(new Bishop(start), start);
-        board.setFigure(new Bishop(other), other);
+        Cell other = new Cell(3, 5);
+        Cell finish = new Cell(3, 5);
+        board.setFigure(new Rook(start), start);
+        board.setFigure(new Knight(other), other);
+        board.setFigure(new Bishop(finish), finish);
         try {
             board.move(start, finish);
         } catch (ChessException e) {
@@ -134,27 +135,6 @@ public class BishopTest {
         assertThat(
                 out.toString().split(System.getProperty("line.separator"))[0],
                 is("Way of figure is busy.")
-        );
-    }
-
-    /**
-     * The seventh test for the move method.
-     */
-    @Test
-    public void whenMoveCellDoesNotHaveFigureThenFigureNotFoundException() {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
-        Board board = new Board();
-        Cell start = new Cell(3, 3);
-        Cell finish = new Cell(5, 5);
-        try {
-            board.move(start, finish);
-        } catch (ChessException e) {
-            System.out.println(e.getMessage());
-        }
-        assertThat(
-                out.toString().split(System.getProperty("line.separator"))[0],
-                is("In a given cell figure not found.")
         );
     }
 }
