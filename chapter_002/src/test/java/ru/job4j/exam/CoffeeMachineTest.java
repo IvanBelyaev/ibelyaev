@@ -2,6 +2,9 @@ package ru.job4j.exam;
 
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -18,7 +21,14 @@ public class CoffeeMachineTest {
     @Test
     public void whenChangesFiftyAndThirtyFiveThenTwoCoins() {
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        int[] methodReturns = coffeeMachine.changes(50, 35);
+        int[] methodReturns = null;
+
+        try {
+            methodReturns = coffeeMachine.changes(50, 35);
+        } catch (NotEnoughMoneyException e) {
+            System.out.println(e.getMessage());
+        }
+
         int[] expected = {10, 5};
         assertThat(methodReturns, is(expected));
     }
@@ -29,7 +39,14 @@ public class CoffeeMachineTest {
     @Test
     public void whenChangesFiftyAndTwentyTwoThenFiveCoins() {
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        int[] methodReturns = coffeeMachine.changes(50, 22);
+        int[] methodReturns = null;
+
+        try {
+            methodReturns = coffeeMachine.changes(50, 22);
+        } catch (NotEnoughMoneyException e) {
+            System.out.println(e.getMessage());
+        }
+
         int[] expected = {10, 10, 5, 2, 1};
         assertThat(methodReturns, is(expected));
     }
@@ -38,10 +55,21 @@ public class CoffeeMachineTest {
      * The third test for the changes method.
      */
     @Test
-    public void whenChangesThirtyAndSixtyThenThreeCoins() {
+    public void whenChangesThirtyAndSixtyThenNotEnoughMoneyException() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        int[] methodReturns = coffeeMachine.changes(30, 60);
-        int[] expected = {10, 10, 10};
-        assertThat(methodReturns, is(expected));
+        int[] methodReturns = null;
+
+        try {
+            methodReturns = coffeeMachine.changes(30, 60);
+        } catch (NotEnoughMoneyException e) {
+            System.out.println(e.getMessage());
+        }
+        assertThat(
+                out.toString().split(System.getProperty("line.separator"))[0],
+                is("Not enough money.")
+        );
     }
 }
