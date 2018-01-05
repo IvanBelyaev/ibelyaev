@@ -9,7 +9,7 @@ import java.util.Random;
 import java.util.TreeSet;
 
 /**
- * Bishop.
+ * TestCollections.
  * @author Ivan Belyaev
  * @since 05.01.2018
  * @version 1.0
