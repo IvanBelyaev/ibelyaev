@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * StarUI.
  * Entry point.
@@ -87,7 +89,7 @@ public class StartUI {
      * Method displays all applications.
      */
     private void showAllItem() {
-        Item[] allItems = this.tracker.findAll();
+        ArrayList<Item> allItems = this.tracker.findAll();
         for (Item item : allItems) {
             System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
                     item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
@@ -164,7 +166,7 @@ public class StartUI {
      */
     private void findItemByName() {
         String name = this.input.ask("name: ");
-        Item[] items = this.tracker.findByName(name);
+        ArrayList<Item> items = this.tracker.findByName(name);
         for (Item item : items) {
             System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
                     item.getId(), item.getName(), item.getDesctiption(), item.getCreate());

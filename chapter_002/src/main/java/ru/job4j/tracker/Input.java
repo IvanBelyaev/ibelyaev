@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * Input.
  * @author Ivan Belyaev
@@ -20,5 +22,5 @@ public interface Input {
      * @param range - the range of possible values.
      * @return returns the user response.
      */
-    int ask(String question, int[] range);
+    int ask(String question, ArrayList<Integer> range);
 }

@@ -22,7 +22,8 @@ public class StubInputTest {
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
         Tracker tracker = new Tracker();
         new StartUI(new StubInput(new String[] {"0", "new item", "desc", "6"}), tracker).init();
-        assertThat(tracker.findAll()[0].getName(), is("new item"));
+
+        assertThat(tracker.findAll().get(0).getName(), is("new item"));
     }
 
     /**

@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * StubInput.
  * @author Ivan Belyaev
@@ -39,7 +41,7 @@ public class StubInput implements Input {
      * @return returns the next pre-prepared response.
      */
     @Override
-    public int ask(String question, int[] range) {
+    public int ask(String question, ArrayList<Integer> range) {
         return Integer.valueOf(this.ask(question));
     }
 }

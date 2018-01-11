@@ -1,5 +1,8 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * Class for editing applications.
  */
@@ -38,7 +41,7 @@ class EditItem extends BaseAction {
  * MenuTracker.
  * @author Ivan Belyaev
  * @since 26.09.2017
- * @version 1.0
+ * @version 2.0
  */
 public class MenuTracker {
     /** The input / output system. */
@@ -46,9 +49,9 @@ public class MenuTracker {
     /** Storage applications. */
     private Tracker tracker;
     /** A repository of all the action. */
-    private UserAction[] actions = new UserAction[6];
+    private ArrayList<UserAction> actions = new ArrayList<>();
     /** The range of values menu. */
-    private int[] range = new int[7];
+    private ArrayList<Integer> range = new ArrayList<>();
 
     /**
      * The constructor creates the object MenuTracker.
@@ -64,22 +67,20 @@ public class MenuTracker {
      * Method fills the vault of the action.
      */
     public void fillActions() {
-        this.actions[0] = this.new AddItem("Add new Item", 0);
-        this.actions[1] = new MenuTracker.ShowAllItems("Show all items", 1);
-        this.actions[2] = new EditItem("Edit item", 2);
-        this.actions[3] = this.new DeleteItem("Delete item", 3);
-        this.actions[4] = this.new FindItemById("Find item by Id", 4);
-        this.actions[5] = this.new FindItemByName("Find items by name", 5);
-        for (int i = 0; i < this.actions.length + 1; i++) {
-            this.range[i] = i;
-        }
+        this.actions.add(this.new AddItem("Add new Item", 0));
+        this.actions.add(new MenuTracker.ShowAllItems("Show all items", 1));
+        this.actions.add(new EditItem("Edit item", 2));
+        this.actions.add(this.new DeleteItem("Delete item", 3));
+        this.actions.add(this.new FindItemById("Find item by Id", 4));
+        this.actions.add(this.new FindItemByName("Find items by name", 5));
+        Collections.addAll(range, 0, 1, 2, 3, 4, 5, 6);
     }
 
     /**
      * The method returns the range of values menu.
      * @return returns the range of values menu.
      */
-    public int[] getRange() {
+    public ArrayList<Integer> getRange() {
         return this.range;
     }
 
@@ -99,7 +100,7 @@ public class MenuTracker {
      * @param key - the number of the menu item.
      */
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     /**
@@ -149,7 +150,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            Item[] allItems = tracker.findAll();
+            ArrayList<Item> allItems = tracker.findAll();
             for (Item item : allItems) {
                 System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
                         item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
@@ -288,7 +289,7 @@ public class MenuTracker {
         @Override
         public void execute(Input input, Tracker tracker) {
             String name = input.ask("name: ");
-            Item[] items = tracker.findByName(name);
+            ArrayList<Item> items = tracker.findByName(name);
             for (Item item : items) {
                 System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
                         item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
