@@ -40,4 +40,20 @@ public class User implements Comparable<User> {
     public String toString() {
         return name + ", " + age;
     }
+
+    /**
+     * The method returns the user name.
+     * @return returns the user name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * The method returns the user's age.
+     * @return returns the user's age.
+     */
+    public int getAge() {
+        return age;
+    }
 }
