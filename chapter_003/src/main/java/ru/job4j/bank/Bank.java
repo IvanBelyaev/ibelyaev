@@ -39,16 +39,9 @@ public class Bank {
      * @param account - the account which you want to add.
      */
     public void addAccountToUser(String passport, Account account) {
-        for (Map.Entry<User, List<Account>> customer : customers.entrySet()) {
-            if (passport.equals(customer.getKey().getPassport())) {
-                List<Account> accounts = customer.getValue();
-
-                if (accounts.indexOf(account) == -1) {
-                    accounts.add(account);
-                }
-
-                break;
-            }
+        List<Account> userAccounts = customers.get(new User("", passport));
+        if (!userAccounts.contains(account)) {
+            userAccounts.add(account);
         }
     }
 
@@ -58,18 +51,8 @@ public class Bank {
      * @param account - the account which you want to delete.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        for (Map.Entry<User, List<Account>> customer : customers.entrySet()) {
-            if (passport.equals(customer.getKey().getPassport())) {
-                List<Account> accounts = customer.getValue();
-                int index = accounts.indexOf(account);
-
-                if (index != -1) {
-                    accounts.remove(index);
-                }
-
-                break;
-            }
-        }
+        List<Account> userAccounts = customers.get(new User("", passport));
+        userAccounts.remove(account);
     }
 
     /**
@@ -78,15 +61,7 @@ public class Bank {
      * @return returns all the customer account.
      */
     public List<Account> getUserAccounts(String passport) {
-        List<Account> result = null;
-
-        for (Map.Entry<User, List<Account>> customer : customers.entrySet()) {
-            if (passport.equals(customer.getKey().getPassport())) {
-                result = customer.getValue();
-            }
-        }
-
-        return result;
+        return customers.get(new User("", passport));
     }
 
     /**
@@ -123,14 +98,10 @@ public class Bank {
     private Account findAccount(String passport, String requisite) {
         Account result = null;
 
-        for (Map.Entry<User, List<Account>> customer : customers.entrySet()) {
-            if (passport.equals(customer.getKey().getPassport())) {
-                for (Account account : customer.getValue()) {
-                    if (requisite.equals(account.getRequisites())) {
-                        result = account;
-                        break;
-                    }
-                }
+        List<Account> userAccounts = customers.get(new User("", passport));
+        for (Account account : userAccounts) {
+            if (requisite.equals(account.getRequisites())) {
+                result = account;
                 break;
             }
         }
