@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Bank.
@@ -39,7 +40,7 @@ public class Bank {
      * @param account - the account which you want to add.
      */
     public void addAccountToUser(String passport, Account account) {
-        List<Account> userAccounts = customers.get(new User("", passport));
+        List<Account> userAccounts = customers.get(new User("New User", passport));
         if (!userAccounts.contains(account)) {
             userAccounts.add(account);
         }
@@ -51,7 +52,7 @@ public class Bank {
      * @param account - the account which you want to delete.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        List<Account> userAccounts = customers.get(new User("", passport));
+        List<Account> userAccounts = customers.get(new User("Deleted User", passport));
         userAccounts.remove(account);
     }
 
@@ -61,7 +62,7 @@ public class Bank {
      * @return returns all the customer account.
      */
     public List<Account> getUserAccounts(String passport) {
-        return customers.get(new User("", passport));
+        return customers.get(new User("Desired User", passport));
     }
 
     /**
@@ -76,13 +77,13 @@ public class Bank {
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
-        Account srcAccount = findAccount(srcPassport, srcRequisite);
-        Account destAccount = findAccount(destPassport, destRequisite);
+        Optional<Account> srcAccount = findAccount(srcPassport, srcRequisite);
+        Optional<Account> destAccount = findAccount(destPassport, destRequisite);
 
         boolean result = false;
-        if (srcAccount != null && destAccount != null && srcAccount.getValue() > amount) {
-            srcAccount.setValue(srcAccount.getValue() - amount);
-            destAccount.setValue(destAccount.getValue() + amount);
+        if (srcAccount.isPresent() && destAccount.isPresent() && srcAccount.get().getValue() > amount) {
+            srcAccount.get().setValue(srcAccount.get().getValue() - amount);
+            destAccount.get().setValue(destAccount.get().getValue() + amount);
             result = true;
         }
 
@@ -95,10 +96,10 @@ public class Bank {
      * @param requisite - account details.
      * @return returns the client's account.
      */
-    private Account findAccount(String passport, String requisite) {
+    private Optional<Account> findAccount(String passport, String requisite) {
         Account result = null;
 
-        List<Account> userAccounts = customers.get(new User("", passport));
+        List<Account> userAccounts = customers.get(new User("Desired User", passport));
         for (Account account : userAccounts) {
             if (requisite.equals(account.getRequisites())) {
                 result = account;
@@ -106,6 +107,6 @@ public class Bank {
             }
         }
 
-        return result;
+        return Optional.ofNullable(result);
     }
 }
