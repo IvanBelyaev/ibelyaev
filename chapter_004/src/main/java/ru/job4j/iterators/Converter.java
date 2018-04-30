@@ -18,7 +18,7 @@ public class Converter {
     Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
         return new Iterator<Integer>() {
             /** Current iterator. */
-            private Iterator<Integer> currentIterator;
+            private Iterator<Integer> currentIterator = it.next();
 
             /**
              * The method returns true if there are numbers in the sequence, otherwise it returns false.
@@ -26,23 +26,11 @@ public class Converter {
              */
             @Override
             public boolean hasNext() {
-                if (currentIterator == null) {
-                    if (it.hasNext()) {
-                        currentIterator = it.next();
-                    } else {
-                        return false;
-                    }
+                while (!currentIterator.hasNext() && it.hasNext()) {
+                    currentIterator = it.next();
                 }
 
-                while (true) {
-                    if (currentIterator.hasNext()) {
-                        return true;
-                    } else if (it.hasNext()) {
-                        currentIterator = it.next();
-                    } else {
-                        return false;
-                    }
-                }
+                return currentIterator.hasNext();
             }
 
             /**
