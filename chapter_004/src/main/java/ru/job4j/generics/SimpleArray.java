@@ -107,6 +107,14 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     /**
+     * The method returns the size of the container.
+     * @return returns the size of the container.
+     */
+    public int size() {
+        return counter;
+    }
+
+    /**
      * The method checks whether the index leaves the container.
      * If the output throws an IndexOutOfBoundsException
      * @param index - index that is checked.
