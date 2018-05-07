@@ -46,8 +46,11 @@ public class SimpleArrayListTest {
     /**
      * Test for delete method.
      */
+    @Test
     public void whenAddThreeElementsThenDeleteOneThenGetSizeResultTwoGetOneResultThree() {
+        list.delete();
+
         assertThat(list.getSize(), is(2));
-        assertThat(list.get(1), is(3));
+        assertThat(list.get(1), is(1));
     }
 }
