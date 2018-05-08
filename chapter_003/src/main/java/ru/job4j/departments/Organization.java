@@ -8,20 +8,28 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Departments.
+ * Organization.
  * @author Ivan Belyaev
  * @since 23.04.2018
  * @version 1.0
  */
-public class Departments {
+public class Organization {
+    /** All departments of the organization. */
+    private Set<String> allDepartments;
+
+    /**
+     * The constructor creates the object Organization.
+     * @param givenDepartments - epartments that are given (perhaps not all).
+     */
+    public Organization(List<String> givenDepartments) {
+        allDepartments = addMissingDepartments(givenDepartments);
+    }
+
     /**
      * The method forms a complete departmental structure and returns it sorted in ascending order.
-     * @param givenDepartments - departments that are given (perhaps not all).
      * @return returns a complete list of departments sorted in ascending order.
      */
-    public static List<String> ascendingSort(List<String> givenDepartments) {
-        Set<String> allDepartments = addMissingDepartments(givenDepartments);
-
+    public List<String> ascendingSort() {
         Set<String> sortedDepartments = new TreeSet<>(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -58,12 +66,9 @@ public class Departments {
 
     /**
      * The method forms a complete departmental structure and returns it sorted in descending order.
-     * @param givenDepartments - departments that are given (perhaps not all).
      * @return returns a complete list of departments sorted in descending order.
      */
-    public static List<String> descendingSort(List<String> givenDepartments) {
-        Set<String> allDepartments = addMissingDepartments(givenDepartments);
-
+    public List<String> descendingSort() {
         Set<String> sortedDepartments = new TreeSet<>(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
@@ -103,7 +108,7 @@ public class Departments {
      * @param givenDepartments - departments that are given (perhaps not all).
      * @return returns a complete set of departments.
      */
-    private static Set<String> addMissingDepartments(List<String> givenDepartments) {
+    private Set<String> addMissingDepartments(List<String> givenDepartments) {
         Set<String> allDepartments = new HashSet<>();
 
         for (String branch : givenDepartments) {

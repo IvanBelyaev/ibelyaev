@@ -10,12 +10,12 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * DepartmentsTest.
+ * OrganizationTest.
  * @author Ivan Belyaev
  * @since 23.04.2018
  * @version 1.0
  */
-public class DepartmentsTest {
+public class OrganizationTest {
     /**
      * Test for ascendingSort method.
      */
@@ -28,7 +28,9 @@ public class DepartmentsTest {
                 "K2", "K2\\SK1\\SSK1", "K2\\SK1\\SSK2"
         );
 
-        List<String> methodReturns = Departments.ascendingSort(list);
+        Organization organization = new Organization(list);
+
+        List<String> methodReturns = organization.ascendingSort();
         List<String> expected = new ArrayList<>();
         Collections.addAll(
                 expected,
@@ -52,7 +54,9 @@ public class DepartmentsTest {
                 "K3\\SK1"
         );
 
-        List<String> methodReturns = Departments.descendingSort(list);
+        Organization organization = new Organization(list);
+
+        List<String> methodReturns = organization.descendingSort();
         List<String> expected = new ArrayList<>();
         Collections.addAll(
                 expected,
