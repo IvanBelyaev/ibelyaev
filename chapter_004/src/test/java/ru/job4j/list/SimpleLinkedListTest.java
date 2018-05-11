@@ -92,4 +92,48 @@ public class SimpleLinkedListTest {
         list.add(4);
         iterator.next();
     }
+
+    /**
+     * Test for the addFirst method.
+     */
+    @Test
+    public void whenAddFirstThenContainerContainsSuchFirstElement() {
+        list.addFirst(35);
+        assertThat(list.get(0), is(35));
+    }
+
+    /**
+     * Test for the addLast method.
+     */
+    @Test
+    public void whenAddLastThenContainerContainsSuchLastElement() {
+        list.addLast(35);
+        assertThat(list.get(list.getSize() - 1), is(35));
+    }
+
+    /**
+     * Test for the deleteFirst method.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void whenDeleteFirstThenRemovedFirstElementFromContainer() {
+        assertThat(list.deleteFirst(), is(1));
+        assertThat(list.get(0), is(2));
+        assertThat(list.deleteFirst(), is(2));
+        assertThat(list.get(0), is(3));
+        assertThat(list.deleteFirst(), is(3));
+        list.deleteFirst();
+    }
+
+    /**
+     * Test for the deleteLast method.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void whenDeleteLastThenRemovedLastElementFromContainer() {
+        assertThat(list.deleteLast(), is(3));
+        assertThat(list.get(list.getSize() - 1), is(2));
+        assertThat(list.deleteLast(), is(2));
+        assertThat(list.get(list.getSize() - 1), is(1));
+        assertThat(list.deleteLast(), is(1));
+        list.deleteLast();
+    }
 }

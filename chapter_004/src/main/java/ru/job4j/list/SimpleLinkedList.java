@@ -41,6 +41,33 @@ public class SimpleLinkedList<E> implements Iterable<E> {
     }
 
     /**
+     * The method adds an element to the beginning of the container.
+     * @param value - new element.
+     */
+    public void addFirst(E value) {
+        Node newLink = new Node(value);
+
+        if (first == null) {
+            last = newLink;
+        } else {
+            newLink.next = first;
+            first.prev = newLink;
+        }
+
+        first = newLink;
+        size++;
+        modCount++;
+    }
+
+    /**
+     * The method adds an element to the end of the container.
+     * @param value - new element.
+     */
+    public void addLast(E value) {
+        add(value);
+    }
+
+    /**
      * The method returns a container element.
      * @param index - the index of the desired element.
      * @return returns a container element.
@@ -67,6 +94,64 @@ public class SimpleLinkedList<E> implements Iterable<E> {
         }
 
         return result.data;
+    }
+
+    /**
+     * The method takes the first element out of the container.
+     * @return returns the first element of the container.
+     */
+    public E deleteFirst() {
+        Node elem = first;
+
+        if (elem == null) {
+            throw new NoSuchElementException();
+        }
+
+        first = first.next;
+
+        if (first == null) {
+            last = null;
+        } else {
+            first.prev = null;
+        }
+
+        size--;
+        modCount++;
+
+        return elem.data;
+    }
+
+    /**
+     * The method takes out the last element of the container.
+     * @return returns the last element of the container.
+     */
+    public E deleteLast() {
+        Node elem = last;
+
+        if (elem == null) {
+            throw new NoSuchElementException();
+        }
+
+        last = last.prev;
+
+        if (last == null) {
+            first = null;
+        } else {
+            last.next = null;
+        }
+
+        size--;
+        modCount++;
+
+        return elem.data;
+    }
+
+    /**
+     * The method returns the size of the container.
+     * @return returns the size of the container.
+     */
+    public int getSize() {
+        return size;
     }
 
     /**
