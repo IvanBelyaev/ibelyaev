@@ -136,4 +136,14 @@ public class SimpleLinkedListTest {
         assertThat(list.deleteLast(), is(1));
         list.deleteLast();
     }
+
+    /**
+     * Test for the contains method.
+     */
+    @Test
+    public void whenContainsThenMethodReturnsTrueOnlyIfTheElementIsContainedInContainer() {
+        assertThat(list.contains(3), is(true));
+        assertThat(list.contains(4), is(false));
+
+    }
 }

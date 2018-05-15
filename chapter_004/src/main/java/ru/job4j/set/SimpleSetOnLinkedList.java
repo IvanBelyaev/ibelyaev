@@ -21,16 +21,7 @@ public class SimpleSetOnLinkedList<E> implements Iterable<E> {
      * @param value - new element.
      */
     public void add(E value) {
-        boolean hasElement = false;
-
-        for (E elem : set) {
-            if (value.equals(elem)) {
-                hasElement = true;
-                break;
-            }
-        }
-
-        if (!hasElement) {
+        if (!set.contains(value)) {
             set.add(value);
         }
     }

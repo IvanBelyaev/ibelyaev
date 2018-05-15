@@ -155,6 +155,26 @@ public class SimpleLinkedList<E> implements Iterable<E> {
     }
 
     /**
+     * The method checks whether the element is contained in the container.
+     * @param value -checked item.
+     * @return returns true if the element is contained in the container, otherwise it returns false.
+     */
+    public boolean contains(E value) {
+        boolean result = false;
+
+        Iterator<E> iterator = iterator();
+
+        while (iterator.hasNext()) {
+            if (value.equals(iterator.next())) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * The method returns an iterator of the container.
      * @return returns an iterator of the container.
      */
