@@ -33,29 +33,7 @@ public class Organization {
         Set<String> sortedDepartments = new TreeSet<>(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
-                int result = 0;
-
-                String[] array1 = o1.split("\\\\");
-                String[] array2 = o2.split("\\\\");
-
-                int i = 0;
-                for (i = 0; i < array1.length && i < array2.length; i++) {
-                    result = array1[i].compareTo(array2[i]);
-                    if (result != 0) {
-                        break;
-                    }
-                }
-
-                if (result == 0 && i < array1.length) {
-                    result = 1;
-                }
-
-                if (result == 0 && i < array2.length) {
-                    result = -1;
-                }
-
-                return result;
-
+                return o1.compareTo(o2);
             }
         });
 
@@ -74,22 +52,19 @@ public class Organization {
             public int compare(String o1, String o2) {
                 int result = 0;
 
-                String[] array1 = o1.split("\\\\");
-                String[] array2 = o2.split("\\\\");
-
                 int i = 0;
-                for (i = 0; i < array1.length && i < array2.length; i++) {
-                    result = array2[i].compareTo(array1[i]);
+                for (i = 0; i < o1.length() && i < o2.length(); i++) {
+                    result = Character.compare(o2.charAt(i), o1.charAt(i));
                     if (result != 0) {
                         break;
                     }
                 }
 
-                if (result == 0 && i < array1.length) {
+                if (result == 0 && i < o1.length()) {
                     result = 1;
                 }
 
-                if (result == 0 && i < array2.length) {
+                if (result == 0 && i < o2.length()) {
                     result = -1;
                 }
 
