@@ -61,7 +61,6 @@ public class SimpleHashSetTest {
         set.add(1);
         set.add(2);
         set.add(3);
-
         set.remove(2);
 
         assertThat(set.contains(1), is(true));
@@ -102,7 +101,6 @@ public class SimpleHashSetTest {
         set.add(3);
 
         Iterator<Integer> iterator = set.iterator();
-
         set.add(5);
 
         iterator.next();

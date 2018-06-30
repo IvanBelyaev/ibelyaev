@@ -28,21 +28,16 @@ public class SimpleHashSet<E> implements Iterable<E> {
      */
     public boolean add(E value) {
         int index = value.hashCode() % containerSize;
-
         if (container[index] == null) {
             size++;
         }
-
         container[index] = value;
-
 
         if (size > 0.75 * containerSize) {
             containerSize = containerSize * 2;
             container = Arrays.copyOf(container, containerSize);
         }
-
         modCount++;
-
         return true;
     }
 
@@ -53,7 +48,6 @@ public class SimpleHashSet<E> implements Iterable<E> {
      */
     public boolean contains(E value) {
         int index = value.hashCode() % containerSize;
-
         return container[index] != null;
     }
 
