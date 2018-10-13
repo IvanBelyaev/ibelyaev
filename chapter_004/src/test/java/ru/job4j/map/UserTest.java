@@ -17,7 +17,7 @@ public class UserTest {
      * Test for User class.
      */
     @Test
-    public void whenUserDoesNotOverrideEqualsAndHashCodeThenHashMapHasTwoUsers() {
+    public void whenUserDoesNotOverrideEqualsThenHashMapHasTwoUsers() {
         User firstUser = new User("Ivan", 3, new GregorianCalendar());
         User secondUser = new User("Ivan", 3, new GregorianCalendar());
 
