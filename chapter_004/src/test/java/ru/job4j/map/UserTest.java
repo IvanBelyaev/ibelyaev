@@ -17,9 +17,9 @@ public class UserTest {
      * Test for User class.
      */
     @Test
-    public void whenUserDoesNotOverrideHachCodeThenHashMapHasTwoUsers() {
-        User firstUser = new User("Ivan", 3, new GregorianCalendar());
-        User secondUser = new User("Ivan", 3, new GregorianCalendar());
+    public void whenUserOverrideHachCodeAndEqualsThenHashMapHasSecondUser() {
+        User firstUser = new User("Ivan", 3, new GregorianCalendar(2018, 10, 13));
+        User secondUser = new User("Ivan", 3, new GregorianCalendar(2018, 10, 13));
 
         Map<User, Object> map = new HashMap<>();
         map.put(firstUser, 1);
