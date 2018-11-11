@@ -58,6 +58,37 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         return rsl;
     }
 
+    /**
+     * The method checks if the tree is binary.
+     * @return true if the tree is binary otherwise returns false.
+     */
+    public boolean isBinary() {
+        return isBinaryTree(root);
+    }
+
+    /**
+     * The method checks if the subtree is binary.
+     * @param treeRoot - subtree root.
+     * @return true if the subtree is binary otherwise returns false.
+     */
+    private boolean isBinaryTree(Node<E> treeRoot) {
+        boolean result = true;
+        int leavesSize = treeRoot.leaves().size();
+        if (leavesSize == 0) {
+            result = true;
+        } else if (leavesSize > 2) {
+            result = false;
+        } else {
+            for (int index = 0; index < leavesSize; index++) {
+                if (!isBinaryTree(treeRoot.leaves().get(index))) {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {

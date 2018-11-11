@@ -114,4 +114,37 @@ public class TreeTest {
         tree.add(2, 5);
         iterator.next();
     }
+
+    /**
+     * First test for the isBinary method.
+     */
+    @Test
+    public void whenTreeIsBinaryThenIsBinaryReturnsTrue() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 5);
+        tree.add(5, 6);
+        assertThat(
+                tree.isBinary(),
+                is(true)
+        );
+    }
+
+    /**
+     * Second test for the isBinary method.
+     */
+    @Test
+    public void whenTreeIsNotBinaryThenIsBinaryReturnsFalse() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertThat(
+                tree.isBinary(),
+                is(false)
+        );
+    }
 }
