@@ -20,33 +20,24 @@ class Analize {
      * @return statistics about the change in the collection.
      */
     Info diff(List<User> previous, List<User> current) {
-        Map<User, String> previousMap = new HashMap<>();
-        for (User user : previous) {
-            previousMap.put(user, user.name);
-        }
-        Map<User, String> currentMap = new HashMap<>();
-        for (User user : current) {
-            currentMap.put(user, user.name);
-        }
-
         int newUsers = 0;
         int modifiedUsers = 0;
         int deletedUsers = 0;
-        for (Map.Entry<User, String> userStringEntry : previousMap.entrySet()) {
-            User user = userStringEntry.getKey();
-            if (currentMap.containsKey(user)) {
-                if (!user.name.equals(currentMap.get(user))) {
-                    modifiedUsers++;
-                }
-            } else {
+
+        Map<Integer, User> currentMap = new HashMap<>();
+        for (User user : current) {
+            currentMap.put(user.id, user);
+        }
+
+        for (User user : previous) {
+            User removedUser = currentMap.remove(user.id);
+            if (removedUser == null) {
                 deletedUsers++;
+            } else if (removedUser.name != user.name) {
+                modifiedUsers++;
             }
         }
-        for (Map.Entry<User, String> userStringEntry : currentMap.entrySet()) {
-            if (!previousMap.containsKey(userStringEntry.getKey())) {
-                newUsers++;
-            }
-        }
+        newUsers = currentMap.size();
 
         return new Info(newUsers, modifiedUsers, deletedUsers);
     }
