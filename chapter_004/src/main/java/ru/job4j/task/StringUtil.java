@@ -1,5 +1,6 @@
 package ru.job4j.task;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,15 +17,12 @@ public class StringUtil {
      * @return repeated characters in string.
      */
     public Set<Character> findDuplicates(String str) {
-        Set<Character> allLetters = new HashSet<>();
-        Set<Character> duplicates = new HashSet<>();
+        HashMap<Character, Integer> allLetters = new HashMap<>();
+        HashSet<Character> duplicates = new HashSet<>();
 
-        for (Character ch : str.toCharArray()) {
-            if (allLetters.contains(ch)) {
-                duplicates.add(ch);
-            } else {
-                allLetters.add(ch);
-            }
+        for (char ch : str.toCharArray()) {
+            allLetters.computeIfPresent(ch, (k, v) -> { duplicates.add(ch); v = 2; return v; });
+            allLetters.putIfAbsent(ch, 1);
         }
 
         return duplicates;
