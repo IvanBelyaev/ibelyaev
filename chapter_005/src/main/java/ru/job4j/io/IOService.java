@@ -1,8 +1,9 @@
 package ru.job4j.io;
 
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * IOService.
@@ -18,14 +19,22 @@ public class IOService {
      * @throws IOException - input/output exceptions.
      */
     boolean isNumber(InputStream in) throws IOException {
-        boolean result = false;
-        try (DataInputStream dataInputStream = new DataInputStream(in)) {
-            int n = dataInputStream.readInt();
-            if (n % 2 == 0) {
-                result = true;
+        int lastDigit = -1;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+            int symbol;
+            while ((symbol = br.read()) != -1) {
+                if (Character.isDigit(symbol)) {
+                    lastDigit = Character.digit(symbol, 10);
+                } else {
+                    throw new IOException("Not a number.");
+                }
             }
         }
 
-        return result;
+        if (lastDigit == -1) {
+            throw new IOException("Empty stream.");
+        }
+
+        return lastDigit % 2 == 0;
     }
 }

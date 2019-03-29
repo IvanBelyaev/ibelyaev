@@ -3,12 +3,11 @@ package ru.job4j.io;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -24,21 +23,8 @@ public class IOServiceTest {
      */
     @Test
     public void whenIsNumberGetsStreamWhichContainsAnEvenNumberThenReturnsTrue() throws IOException {
-        boolean expected = true;
-        boolean methodReturns;
-        IOService ioService = new IOService();
-
-        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream)) {
-
-            dataOutputStream.writeInt(14);
-
-            try (InputStream inputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray())) {
-
-                methodReturns = ioService.isNumber(inputStream);
-            }
-        }
-        assertThat(expected, is(methodReturns));
+        final IOService ioService = new IOService();
+        assertTrue(ioService.isNumber(new ByteArrayInputStream("1234567891234567891234567890".getBytes())));
     }
 
     /**
@@ -47,20 +33,35 @@ public class IOServiceTest {
      */
     @Test
     public void whenIsNumberGetsStreamWhichContainsAnOddNumberThenReturnsFalse() throws IOException {
-        boolean expected = false;
-        boolean methodReturns;
-        IOService ioService = new IOService();
+        final IOService ioService = new IOService();
+        assertFalse(ioService.isNumber(new ByteArrayInputStream("123456789123456789123456789".getBytes())));
+    }
 
-        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream)) {
-
-            dataOutputStream.writeInt(15);
-
-            try (InputStream inputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray())) {
-
-                methodReturns = ioService.isNumber(inputStream);
-            }
+    /**
+     * Test for the isNumber method, when stream does not contain a number.
+     * @throws IOException - input/output exceptions.
+     */
+    @Test
+    public void whenIsNumberGetsStreamWithOutNumberThenReturnsIOExceptionWithMessageNotANumber() throws IOException {
+        final IOService ioService = new IOService();
+        try {
+            ioService.isNumber(new ByteArrayInputStream("asd".getBytes()));
+        } catch (IOException ex) {
+            assertThat(ex.getMessage(), is("Not a number."));
         }
-        assertThat(expected, is(methodReturns));
+    }
+
+    /**
+     * Test for the isNumber method, when stream is empty.
+     * @throws IOException - input/output exceptions.
+     */
+    @Test
+    public void whenIsNumberGetsEmptyStreamThenReturnsIOExceptionWithMessageEmptyStream() throws IOException {
+        final IOService ioService = new IOService();
+        try {
+            ioService.isNumber(new ByteArrayInputStream("".getBytes()));
+        } catch (IOException ex) {
+            assertThat(ex.getMessage(), is("Empty stream."));
+        }
     }
 }
