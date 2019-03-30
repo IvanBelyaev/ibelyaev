@@ -3,7 +3,10 @@ package ru.job4j.io;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.hamcrest.Matchers.is;
@@ -39,10 +42,9 @@ public class IOServiceTest {
 
     /**
      * Test for the isNumber method, when stream does not contain a number.
-     * @throws IOException - input/output exceptions.
      */
     @Test
-    public void whenIsNumberGetsStreamWithOutNumberThenReturnsIOExceptionWithMessageNotANumber() throws IOException {
+    public void whenIsNumberGetsStreamWithOutNumberThenReturnsIOExceptionWithMessageNotANumber() {
         final IOService ioService = new IOService();
         try {
             ioService.isNumber(new ByteArrayInputStream("asd".getBytes()));
@@ -53,15 +55,29 @@ public class IOServiceTest {
 
     /**
      * Test for the isNumber method, when stream is empty.
-     * @throws IOException - input/output exceptions.
      */
     @Test
-    public void whenIsNumberGetsEmptyStreamThenReturnsIOExceptionWithMessageEmptyStream() throws IOException {
+    public void whenIsNumberGetsEmptyStreamThenReturnsIOExceptionWithMessageEmptyStream() {
         final IOService ioService = new IOService();
         try {
             ioService.isNumber(new ByteArrayInputStream("".getBytes()));
         } catch (IOException ex) {
             assertThat(ex.getMessage(), is("Empty stream."));
         }
+    }
+
+    /**
+     * Test for the dropAbuses method.
+     */
+    @Test
+    public void whenDropAbusesGetsInputStreamThenReturnsTheSameOutputStreamWithoutAbuses() {
+        IOService ioService = new IOService();
+        InputStream in = new ByteArrayInputStream("adcaa aa bb abcdaaa bb\naa\nbb\nabcaa\n".getBytes());
+        OutputStream os = new ByteArrayOutputStream();
+
+        ioService.dropAbuses(in, os, new String[] {"aa", "bb"});
+
+        assertThat(os.toString(), is("adcaa   abcdaaa \n\n\nabcaa\n"));
+
     }
 }
