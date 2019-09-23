@@ -56,11 +56,11 @@ public class ConsoleChat {
 
             boolean needAnswer = true;
             String userSay = in.nextLine();
-            while (!userSay.equals("exit")) {
+            while (!"exit".equals(userSay)) {
                 out.println(userSay);
-                if (userSay.equals("stop")) {
+                if ("stop".equals(userSay)) {
                     needAnswer = false;
-                } else if (userSay.equals("continue")) {
+                } else if ("continue".equals(userSay)) {
                     needAnswer = true;
                 }
                 if (needAnswer) {
