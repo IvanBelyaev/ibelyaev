@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * StarUI.
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class StartUI {
     /** Storage applications. */
-    private Tracker tracker;
+    private ITracker tracker;
     /** Object input / output. */
     private Input input;
 
@@ -20,7 +20,7 @@ public class StartUI {
      * @param input - interface input / output.
      * @param tracker - storage applications.
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, ITracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
@@ -89,7 +89,7 @@ public class StartUI {
      * Method displays all applications.
      */
     private void showAllItem() {
-        ArrayList<Item> allItems = this.tracker.findAll();
+        List<Item> allItems = this.tracker.findAll();
         for (Item item : allItems) {
             System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
                     item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
@@ -121,7 +121,7 @@ public class StartUI {
         if (item == null) {
             System.out.println("This id does not exist.");
         } else {
-            this.tracker.delete(item);
+            this.tracker.delete(item.getId());
             System.out.println("Item deleted.");
         }
     }
@@ -166,7 +166,7 @@ public class StartUI {
      */
     private void findItemByName() {
         String name = this.input.ask("name: ");
-        ArrayList<Item> items = this.tracker.findByName(name);
+        List<Item> items = this.tracker.findByName(name);
         for (Item item : items) {
             System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
                     item.getId(), item.getName(), item.getDesctiption(), item.getCreate());

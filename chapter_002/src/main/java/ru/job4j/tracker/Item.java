@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.Objects;
+
 /**
  * Item.
  * @author Ivan Belyaev
@@ -119,5 +121,25 @@ public class Item {
         if (commentsCounter < MAX_COMMENTS) {
             comments[commentsCounter++] = newComment;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return create == item.create
+                && Objects.equals(name, item.name)
+                && Objects.equals(desctiption, item.desctiption)
+                && Objects.equals(id, item.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, desctiption, create, id);
     }
 }

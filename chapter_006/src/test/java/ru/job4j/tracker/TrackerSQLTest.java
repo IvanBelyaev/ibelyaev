@@ -9,25 +9,25 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * TrackerTest.
+ * TrackerSQLTest.
  * @author Ivan Belyaev
- * @since 12.09.2017
+ * @since 13.11.2019
  * @version 1.0
  */
-public class TrackerTest {
+public class TrackerSQLTest {
     /**
      * Test for the add method.
      */
     @Test
     public void whenAddOneToOneThenTwo() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new TrackerSQL();
         Item item1 = new Item("name1", "desc1", 123L);
         tracker.add(item1);
         Item item2 = new Item("name2", "desc2", 1234L);
         tracker.add(item2);
         List<Item> methodReturns = tracker.findAll();
 
-        ArrayList<Item> expected = new ArrayList<>();
+        List<Item> expected = new ArrayList<>();
         expected.add(item1);
         expected.add(item2);
 
@@ -39,12 +39,12 @@ public class TrackerTest {
      */
     @Test
     public void whenUpdateNameThenReturnNewName() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new TrackerSQL();
         Item item1 = new Item("name1", "desc1", 123L);
         tracker.add(item1);
         Item item2 = new Item("name2", "desc2", 1234L);
         item2.setId(item1.getId());
-        tracker.update(item2);
+        tracker.replace(item2.getId(), item2);
         String expected = "name2";
         assertThat(tracker.findById(item1.getId()).getName(), is(expected));
     }
@@ -54,12 +54,12 @@ public class TrackerTest {
      */
     @Test
     public void whenDeleteOneFromTwoThenOne() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new TrackerSQL();
         Item item1 = new Item("name1", "desc1", 123L);
         tracker.add(item1);
         Item item2 = new Item("name2", "desc2", 1234L);
         tracker.add(item2);
-        tracker.delete(item1);
+        tracker.delete(item1.getId());
         List<Item> methodReturns = tracker.findAll();
 
         ArrayList<Item> expected = new ArrayList<>();
@@ -73,7 +73,7 @@ public class TrackerTest {
      */
     @Test
     public void whenFindAllTwoFromTwoThenTwo() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new TrackerSQL();
         Item item1 = new Item("name1", "desc1", 123L);
         tracker.add(item1);
         Item item2 = new Item("name2", "desc2", 1234L);
@@ -92,7 +92,7 @@ public class TrackerTest {
      */
     @Test
     public void whenFindByNameAsTaskThenTwo() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new TrackerSQL();
         Item item1 = new Item("task", "desc1", 123L);
         tracker.add(item1);
         Item item2 = new Item("name", "desc2", 1234L);
@@ -113,7 +113,7 @@ public class TrackerTest {
      */
     @Test
     public void whenFindByIdThenItemWithUniqueId() {
-        Tracker tracker = new Tracker();
+        ITracker tracker = new TrackerSQL();
         Item item1 = new Item("task", "desc1", 123L);
         tracker.add(item1);
         Item item2 = new Item("name", "desc2", 1234L);

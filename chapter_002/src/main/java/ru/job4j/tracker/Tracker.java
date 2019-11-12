@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -10,12 +11,12 @@ import java.util.Random;
  * @since 14.09.2017
  * @version 2.0
  */
-public class Tracker {
+public class Tracker implements ITracker {
     /** Field to create a unique identifier for each request. */
     private static final Random RN = new Random();
 
     /** Array of storage applications. */
-    private ArrayList<Item> items = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     /**
      * The method adds a request.
@@ -35,6 +36,15 @@ public class Tracker {
      */
     public void update(Item item) {
         String id = item.getId();
+        replace(id, item);
+    }
+
+    /**
+     * The method updates the information in the application.
+     * @param id - id of request you want to update
+     * @param item - new information for applications.
+     */
+    public void replace(String id, Item item) {
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId().equals(id)) {
                 items.set(i, item);
@@ -49,6 +59,14 @@ public class Tracker {
      */
     public void delete(Item item) {
         String id = item.getId();
+        delete(id);
+    }
+
+    /**
+     * Method removes the application.
+     * @param id - id of request you want to delete
+     */
+    public void delete(String id) {
         Iterator<Item> iterator = items.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().getId().equals(id)) {
@@ -62,7 +80,7 @@ public class Tracker {
      * The method returns all applications.
      * @return returns an array of all applications.
      */
-    public ArrayList<Item> findAll() {
+    public List<Item> findAll() {
         return items;
     }
 
@@ -71,7 +89,7 @@ public class Tracker {
      * @param key - name to search for.
      * @return returns an array of all applications with a specific name.
      */
-    public ArrayList<Item> findByName(String key) {
+    public List<Item> findByName(String key) {
         ArrayList<Item> result = new ArrayList<>();
         for (Item item : items) {
             if (item.getName().equals(key)) {

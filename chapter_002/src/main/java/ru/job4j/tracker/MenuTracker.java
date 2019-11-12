@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Class for editing applications.
@@ -22,7 +23,7 @@ class EditItem extends BaseAction {
     }
 
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, ITracker tracker) {
         String id = input.ask("Enter id: ");
         Item item = tracker.findById(id);
         if (item == null) {
@@ -32,6 +33,7 @@ class EditItem extends BaseAction {
                     item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
             item.setName(input.ask("name: "));
             item.setDesctiption(input.ask("description: "));
+            tracker.replace(id, item);
         }
     }
 }
@@ -47,7 +49,7 @@ public class MenuTracker {
     /** The input / output system. */
     private Input input;
     /** Storage applications. */
-    private Tracker tracker;
+    private ITracker tracker;
     /** A repository of all the action. */
     private ArrayList<UserAction> actions = new ArrayList<>();
     /** The range of values menu. */
@@ -58,7 +60,7 @@ public class MenuTracker {
      * @param input - the input / output system.
      * @param tracker - storage applications.
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, ITracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
@@ -122,7 +124,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String name = input.ask("name: ");
             String description = input.ask("description: ");
             tracker.add(new Item(name, description, System.currentTimeMillis()));
@@ -149,8 +151,8 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
-            ArrayList<Item> allItems = tracker.findAll();
+        public void execute(Input input, ITracker tracker) {
+            List<Item> allItems = tracker.findAll();
             for (Item item : allItems) {
                 System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
                         item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
@@ -177,13 +179,13 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String id = input.ask("Enter id: ");
             Item item = tracker.findById(id);
             if (item == null) {
                 System.out.println("This id does not exist.");
             } else {
-                tracker.delete(item);
+                tracker.delete(item.getId());
                 System.out.println("Item deleted.");
             }
         }
@@ -208,7 +210,7 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String id = input.ask("Enter id: ");
             Item item = tracker.findById(id);
 
@@ -287,9 +289,9 @@ public class MenuTracker {
         }
 
         @Override
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             String name = input.ask("name: ");
-            ArrayList<Item> items = tracker.findByName(name);
+            List<Item> items = tracker.findByName(name);
             for (Item item : items) {
                 System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
                         item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
