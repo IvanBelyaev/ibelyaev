@@ -51,13 +51,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             String pass = properties.getProperty("password");
             connection = DriverManager.getConnection(url, user, pass);
             try (Statement statement = connection.createStatement()) {
-                String sql = "CREATE TABLE IF NOT EXISTS users ("
+                String sql = "CREATE TABLE IF NOT EXISTS items ("
                                 + "id VARCHAR(14) PRIMARY KEY,"
                                 + "name VARCHAR(50) NOT NULL,"
                                 + "description VARCHAR(350) NOT NULL,"
                                 + "create_time TIMESTAMP NOT NULL)";
                 statement.executeUpdate(sql);
-                sql = "DELETE FROM users";
+                sql = "DELETE FROM items";
                 statement.executeUpdate(sql);
             }
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item add(Item item) {
         try (PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO users(id, name, description, create_time) VALUES(?, ?, ?, ?)")) {
+                "INSERT INTO items(id, name, description, create_time) VALUES(?, ?, ?, ?)")) {
             String newID = this.generateId();
             item.setId(newID);
             statement.setString(1, newID);
@@ -96,7 +96,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public void replace(String id, Item item) {
         try (PreparedStatement statement = connection.prepareStatement(
-                "UPDATE users SET name = ?, description = ?, create_time = ? where id = ?")) {
+                "UPDATE items SET name = ?, description = ?, create_time = ? where id = ?")) {
             statement.setString(1, item.getName());
             statement.setString(2, item.getDesctiption());
             statement.setTimestamp(3, new Timestamp(item.getCreate()));
@@ -113,7 +113,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      */
     @Override
     public void delete(String id) {
-        try (PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE id = ?")) {
             statement.setString(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -129,7 +129,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     public List<Item> findAll() {
         List<Item> items = new LinkedList<>();
         try (Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM users")) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM items")) {
                 while (resultSet.next()) {
                     items.add(this.getItem(resultSet));
                 }
@@ -148,7 +148,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public List<Item> findByName(String key) {
         List<Item> items = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE name = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE name = ?")) {
             statement.setString(1, key);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -169,7 +169,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item findById(String id) {
         Item item = null;
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE id = ?")) {
             statement.setString(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
