@@ -39,6 +39,14 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     }
 
     /**
+     * The constructor creates the object TrackerSQL.
+     * @param connection - database connection.
+     */
+    public TrackerSQL(Connection connection) {
+        this.connection = connection;
+    }
+
+    /**
      * The method creates a connection to the database and the tables in it.
      * @return true if the connection was successful.
      */

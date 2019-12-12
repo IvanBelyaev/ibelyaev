@@ -9,8 +9,14 @@ jdk:
 services:
   - postgresql
 
-before_script:
+before_install:
   - psql -c 'create database tracker;' -U postgres
+
+install:
+  - mvn install -P travis -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+script:
+  - mvn test -P travis -B
 
 # после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
 # Здесь используется сторонний сервис https://codecov.io/
@@ -24,3 +30,7 @@ notifications:
       - gh0st84@mail.ru
     on_success: never # default: change
     on_failure: always # default: always
+
+env:
+  global:
+    - CODECOV_TOKEN="c5bb4d50-bb67-4c4c-9284-c5c69ba278a6"
