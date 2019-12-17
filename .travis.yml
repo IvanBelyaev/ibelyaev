@@ -11,9 +11,13 @@ services:
 
 before_install:
   - psql -c 'create database tracker;' -U postgres
+  - psql -c 'create database sql_ru;' -U postgres
 
 install:
   - mvn install -P travis -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+deploy:
+  - github-token: $GITHUB_TOKEN
 
 script:
   - mvn test -P travis -B
