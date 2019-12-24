@@ -4,7 +4,7 @@ language: java
 sudo: false
 
 jdk:
-  - oraclejdk11
+  - openjdk11
 
 services:
   - postgresql
@@ -15,9 +15,6 @@ before_install:
 
 install:
   - mvn install -P travis -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
-deploy:
-  - github-token: $GITHUB_TOKEN
 
 script:
   - mvn test -P travis -B
