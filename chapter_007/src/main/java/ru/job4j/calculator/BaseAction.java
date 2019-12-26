@@ -61,10 +61,10 @@ public abstract class BaseAction implements UserAction {
         if (interactCalc.isReuseResult()) {
             firstOperand = interactCalc.getResult();
         } else {
-            inputOutput.printString("Введите первый операнд: ");
+            inputOutput.printString("Введите первое число: ");
             firstOperand = inputOutput.getDouble();
         }
-        inputOutput.printString("Введите второй операнд: ");
+        inputOutput.printString("Введите второе число: ");
         secondOperand = inputOutput.getDouble();
     }
 

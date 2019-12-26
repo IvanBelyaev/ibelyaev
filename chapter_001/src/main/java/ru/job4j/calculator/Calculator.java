@@ -47,6 +47,30 @@ public class Calculator {
 	}
 
 	/**
+	 * The method calculates the sine of a number.
+	 * @param argument number
+	 */
+	public void sin(double argument) {
+		this.result = Math.sin(argument);
+	}
+
+	/**
+	 * The method calculates the cosine of a number.
+	 * @param argument number
+	 */
+	public void cos(double argument) {
+		this.result = Math.cos(argument);
+	}
+
+	/**
+	 * The method calculates the tangent of a number.
+	 * @param argument number
+	 */
+	public void tan(double argument) {
+		this.result = Math.tan(argument);
+	}
+
+	/**
 	 * The method returns the result.
 	 * @return returns the result of the calculation
 	 */

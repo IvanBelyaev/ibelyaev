@@ -36,7 +36,10 @@ public class MainMenu {
         mainMenu.put(2, new SubtractItem("Вычесть", 2));
         mainMenu.put(3, new MultiplyItem("Умножить", 3));
         mainMenu.put(4, new DivideItem("Разделить", 4));
-        mainMenu.put(5, new ExitItem("Выйти", 5));
+        mainMenu.put(5, new SineItem("Вычислить синус", 5));
+        mainMenu.put(6, new CosineItem("Вычислить косинус", 6));
+        mainMenu.put(7, new TangentItem("Вычислить тангенс", 7));
+        mainMenu.put(8, new ExitItem("Выйти", 8));
     }
 
     /**
@@ -209,6 +212,132 @@ public class MainMenu {
     }
 
     /**
+     * Menu item for calculating the sine.
+     */
+    private class SineItem extends BaseAction {
+        /**
+         * The overridden constructor for objects of heirs.
+         *
+         * @param name - the name of the menu item.
+         * @param key  - the number of the menu item.
+         */
+        SineItem(String name, int key) {
+            super(name, key);
+        }
+
+        /**
+         * The method returns the number of the menu item.
+         * @return the number of the menu item.
+         */
+        @Override
+        public int key() {
+            return 5;
+        }
+
+        /**
+         * The method performs the divide action.
+         * @param interactCalc interactive calculator.
+         * @param inputOutput the input / output system.
+         */
+        @Override
+        public void execute(InteractCalc interactCalc, InputOutput inputOutput) {
+            double argument;
+            if (interactCalc.isReuseResult()) {
+                argument = interactCalc.getResult();
+            } else {
+                inputOutput.printString("Введите число: ");
+                argument = inputOutput.getDouble();
+            }
+            interactCalc.getCalculator().sin(argument);
+            finishExecute(interactCalc, inputOutput);
+        }
+    }
+
+    /**
+     * Menu item for calculating the cosine.
+     */
+    private class CosineItem extends BaseAction {
+        /**
+         * The overridden constructor for objects of heirs.
+         *
+         * @param name - the name of the menu item.
+         * @param key  - the number of the menu item.
+         */
+        CosineItem(String name, int key) {
+            super(name, key);
+        }
+
+        /**
+         * The method returns the number of the menu item.
+         * @return the number of the menu item.
+         */
+        @Override
+        public int key() {
+            return 6;
+        }
+
+        /**
+         * The method performs the divide action.
+         * @param interactCalc interactive calculator.
+         * @param inputOutput the input / output system.
+         */
+        @Override
+        public void execute(InteractCalc interactCalc, InputOutput inputOutput) {
+            double argument;
+            if (interactCalc.isReuseResult()) {
+                argument = interactCalc.getResult();
+            } else {
+                inputOutput.printString("Введите число: ");
+                argument = inputOutput.getDouble();
+            }
+            interactCalc.getCalculator().cos(argument);
+            finishExecute(interactCalc, inputOutput);
+        }
+    }
+
+    /**
+     * Menu item for calculating the tangent.
+     */
+    private class TangentItem extends BaseAction {
+        /**
+         * The overridden constructor for objects of heirs.
+         *
+         * @param name - the name of the menu item.
+         * @param key  - the number of the menu item.
+         */
+        TangentItem(String name, int key) {
+            super(name, key);
+        }
+
+        /**
+         * The method returns the number of the menu item.
+         * @return the number of the menu item.
+         */
+        @Override
+        public int key() {
+            return 7;
+        }
+
+        /**
+         * The method performs the divide action.
+         * @param interactCalc interactive calculator.
+         * @param inputOutput the input / output system.
+         */
+        @Override
+        public void execute(InteractCalc interactCalc, InputOutput inputOutput) {
+            double argument;
+            if (interactCalc.isReuseResult()) {
+                argument = interactCalc.getResult();
+            } else {
+                inputOutput.printString("Введите число: ");
+                argument = inputOutput.getDouble();
+            }
+            interactCalc.getCalculator().tan(argument);
+            finishExecute(interactCalc, inputOutput);
+        }
+    }
+
+    /**
      * Menu item exits application.
      */
     private class ExitItem extends BaseAction {
@@ -228,7 +357,7 @@ public class MainMenu {
          */
         @Override
         public int key() {
-            return 5;
+            return 8;
         }
 
         /**
