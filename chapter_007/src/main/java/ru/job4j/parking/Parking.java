@@ -10,47 +10,82 @@ import ru.job4j.parking.cars.Car;
  * @version 2.0
  */
 public class Parking {
+    /** Parking places. */
+    private final Car[] parkingPlaces;
+    /** Number of free parking spaces. */
+    private int freePlaces;
+    /** The total number of cars in the parking lot. */
+    private int numberOfCars = 0;
+
     /**
      * Constructor.
-     * @param passengerCarParkingPlaces number of parking spaces for cars.
-     * @param truckParkingPlaces number of parking spaces for trucks.
+     * @param parkingPlaces number of parking spaces.
      */
-    public Parking(int passengerCarParkingPlaces, int truckParkingPlaces) {
-
+    public Parking(int parkingPlaces) {
+        this.parkingPlaces = new Car[parkingPlaces];
+        this.freePlaces = parkingPlaces;
     }
 
     /**
      * Method parks cars.
-     * Cars can only be parked in places for cars.
-     * Trucks in the absence of free parking spaces for trucks are parked in places for cars.
      * @param car any type of car, truck or passenger.
      * @return true if the car managed to park, otherwise returns false.
      */
-    boolean park(Car car) {
-        return true;
+    public boolean park(Car car) {
+        boolean result = false;
+        int startIndex = findFreePlaces(car);
+        if (startIndex != -1) {
+            for (int i = startIndex; i < startIndex + car.getSize(); i++) {
+                parkingPlaces[i] = car;
+            }
+            freePlaces = freePlaces - car.getSize();
+            numberOfCars++;
+            result = true;
+        }
+        return result;
     }
 
     /**
-     * Method returns amount of free places for passenger car.
-     * @return amount of free places for passenger car.
+     * Method returns amount of free places.
+     * @return amount of free places.
      */
-    int getAmountOfFreePlacesForPassengerCar() {
-        return 0;
+    public int getAmountOfFreePlaces() {
+        return freePlaces;
     }
 
     /**
-     * Method returns amount of free places for truck.
-     * @return amount of free places for passenger truck.
-     */
-    int getAmountOfFreePlacesForTruck() {
-        return 0;
-    }
-
-    /**
-     * the method returns the number of parked cars, trucks and cars.
+     * The method returns the number of parked cars, trucks and cars.
      * @return the number of parked car.
      */
-    int getNumberOfCars() {
-        return 0;
+    public int getNumberOfCars() {
+        return numberOfCars;
+    }
+
+    /**
+     * The method looks for a parking places.
+     * @param car any type of car, truck or passenger.
+     * @return the parking start location or -1 if there is no space.
+     */
+    private int findFreePlaces(Car car) {
+        int startParkingWith = -1;
+        int counter = 0;
+        boolean isPreviousPlaceFree = false;
+        for (int i = 0; i < parkingPlaces.length; i++) {
+            if (parkingPlaces[i] == null) {
+                if (!isPreviousPlaceFree) {
+                    counter = 0;
+                    isPreviousPlaceFree = true;
+                }
+                counter++;
+            } else {
+                startParkingWith = -1;
+                isPreviousPlaceFree = false;
+            }
+            if (counter == car.getSize()) {
+                startParkingWith = i - car.getSize() + 1;
+                break;
+            }
+        }
+        return startParkingWith;
     }
 }

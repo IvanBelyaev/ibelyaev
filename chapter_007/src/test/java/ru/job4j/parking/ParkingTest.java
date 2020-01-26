@@ -23,12 +23,11 @@ public class ParkingTest {
      */
     @Test
     public void whenParkOnePoloThenAmountOfFreePlacesForPassengerCarDecreasesByOne() {
-        Parking parking = new Parking(10, 10);
+        Parking parking = new Parking(10);
         Car polo = new VWPolo();
 
         assertTrue(parking.park(polo));
-        assertThat(parking.getAmountOfFreePlacesForPassengerCar(), is(9));
-        assertThat(parking.getAmountOfFreePlacesForTruck(), is(10));
+        assertThat(parking.getAmountOfFreePlaces(), is(9));
         assertThat(parking.getNumberOfCars(), is(1));
     }
 
@@ -37,12 +36,11 @@ public class ParkingTest {
      */
     @Test
     public void whenParkOneKamazThenAmountOfFreePlacesForTruckDecreasesByOne() {
-        Parking parking = new Parking(10, 10);
+        Parking parking = new Parking(10);
         Car kamaz = new Kamaz();
 
         assertTrue(parking.park(kamaz));
-        assertThat(parking.getAmountOfFreePlacesForPassengerCar(), is(10));
-        assertThat(parking.getAmountOfFreePlacesForTruck(), is(9));
+        assertThat(parking.getAmountOfFreePlaces(), is(7));
         assertThat(parking.getNumberOfCars(), is(1));
     }
 
@@ -51,14 +49,13 @@ public class ParkingTest {
      */
     @Test
     public void whenPlacesForTrucksEndThenParkOnPlacesForPassengerCar() {
-        Parking parking = new Parking(10, 1);
+        Parking parking = new Parking(10);
         Car kamaz = new Kamaz();
         Car kamaz2 = new Kamaz();
 
         assertTrue(parking.park(kamaz));
         assertTrue(parking.park(kamaz2));
-        assertThat(parking.getAmountOfFreePlacesForPassengerCar(), is(7));
-        assertThat(parking.getAmountOfFreePlacesForTruck(), is(0));
+        assertThat(parking.getAmountOfFreePlaces(), is(4));
         assertThat(parking.getNumberOfCars(), is(2));
     }
 
@@ -67,18 +64,15 @@ public class ParkingTest {
      */
     @Test
     public void whenParkingSpacesHaveEndedThenDoNotPark() {
-        Parking parking = new Parking(1, 1);
+        Parking parking = new Parking(1);
         Car kamaz = new Kamaz();
-        Car kamaz2 = new Kamaz();
         Car polo = new VWPolo();
         Car polo2 = new VWPolo();
 
-        assertTrue(parking.park(kamaz));
-        assertFalse(parking.park(kamaz2));
+        assertFalse(parking.park(kamaz));
         assertTrue(parking.park(polo));
         assertFalse(parking.park(polo2));
-        assertThat(parking.getAmountOfFreePlacesForPassengerCar(), is(0));
-        assertThat(parking.getAmountOfFreePlacesForTruck(), is(0));
-        assertThat(parking.getNumberOfCars(), is(2));
+        assertThat(parking.getAmountOfFreePlaces(), is(0));
+        assertThat(parking.getNumberOfCars(), is(1));
     }
 }
