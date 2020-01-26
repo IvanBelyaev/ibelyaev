@@ -29,4 +29,11 @@ public interface Storage {
      * @return set of products in the store.
      */
     Set<Food> getProducts();
+
+    /**
+     * The method retrieves all products from the store.
+     * Cleans storage.
+     * @return a set of products that was in the store.
+     */
+    Set<Food> extractProducts();
 }

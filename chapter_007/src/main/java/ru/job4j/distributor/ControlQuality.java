@@ -3,6 +3,7 @@ package ru.job4j.distributor;
 import ru.job4j.distributor.products.Food;
 import ru.job4j.distributor.storages.Storage;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,5 +38,14 @@ public class ControlQuality {
                 }
             }
         }
+    }
+
+    /**
+     * The method retrieves all products from the stores and redistributes them again.
+     */
+    public void resort() {
+        List<Food> products = new ArrayList<>();
+        storages.stream().forEach(storage -> { products.addAll(storage.extractProducts()); });
+        distribute(products);
     }
 }

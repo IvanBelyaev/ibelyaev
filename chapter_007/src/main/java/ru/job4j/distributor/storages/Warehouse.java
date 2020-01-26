@@ -52,4 +52,16 @@ public class Warehouse implements Storage {
     public Set<Food> getProducts() {
         return products;
     }
+
+    /**
+     * The method retrieves all products from the store.
+     * Cleans storage.
+     * @return a set of products that was in the store.
+     */
+    @Override
+    public Set<Food> extractProducts() {
+        Set<Food> extractedProducts = new HashSet<>(getProducts());
+        products.clear();
+        return extractedProducts;
+    }
 }

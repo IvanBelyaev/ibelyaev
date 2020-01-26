@@ -7,6 +7,7 @@ import ru.job4j.distributor.products.Milk;
 import ru.job4j.distributor.products.Pasta;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
@@ -78,5 +79,16 @@ public class StorageTest {
         assertThat(shop.getProducts().size(), is(2));
         assertThat(warehouse.getProducts().size(), is(1));
         assertThat(trash.getProducts().size(), is(1));
+
+        Set<Food> shopProducts = shop.extractProducts();
+        Set<Food> warehouseProducts = warehouse.extractProducts();
+        Set<Food> trashProducts = trash.extractProducts();
+
+        assertThat(shopProducts.size(), is(2));
+        assertThat(warehouseProducts.size(), is(1));
+        assertThat(trashProducts.size(), is(1));
+        assertThat(shop.getProducts().size(), is(0));
+        assertThat(warehouse.getProducts().size(), is(0));
+        assertThat(trash.getProducts().size(), is(0));
     }
 }

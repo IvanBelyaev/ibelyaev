@@ -57,6 +57,18 @@ public class Shop implements Storage {
     }
 
     /**
+     * The method retrieves all products from the store.
+     * Cleans storage.
+     * @return a set of products that was in the store.
+     */
+    @Override
+    public Set<Food> extractProducts() {
+        Set<Food> extractedProducts = new HashSet<>(getProducts());
+        products.clear();
+        return extractedProducts;
+    }
+
+    /**
      * Method returns expiration percentage of the product.
      * @param food any product.
      * @return expiration percentage of the product.

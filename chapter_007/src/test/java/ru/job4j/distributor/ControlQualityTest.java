@@ -85,4 +85,68 @@ public class ControlQualityTest {
 
         assertThat(milk.getDiscount(), is(50.0));
     }
+
+    /**
+     * Test for the resort method.
+     */
+    @Test
+    public void whenResortThenProductsAreInTheRightStorage() {
+        LocalDate createDate = LocalDate.now().minusDays(10);
+        // Shelf life - 100 days, passed - 10 days.
+        Food pasta = new Pasta(
+                "pasta",
+                createDate.plusDays(100),
+                createDate,
+                300,
+                20
+        );
+        // Shelf life - 20 days, passed - 10 days.
+        Food pasta2 = new Pasta(
+                "pasta2",
+                createDate.plusDays(20),
+                createDate,
+                300,
+                20
+        );
+        // Shelf life - 12 days, passed - 10 days.
+        Food milk = new Milk(
+                "milk",
+                createDate.plusDays(12),
+                createDate,
+                300,
+                20
+        );
+        // Shelf life - 8 days, passed - 10 days.
+        Food fish = new Fish(
+                "fish",
+                createDate.plusDays(8),
+                createDate,
+                300,
+                20
+        );
+        Storage shop = new Shop();
+        Storage warehouse = new Warehouse();
+        Storage trash = new Trash();
+
+        warehouse.add(fish);
+        warehouse.add(pasta2);
+        trash.add(pasta);
+        shop.add(milk);
+
+        List<Storage> storages = new ArrayList<>();
+        Collections.addAll(storages, shop, warehouse, trash);
+        ControlQuality controlQuality = new ControlQuality(storages);
+        controlQuality.resort();
+
+        assertThat(shop.getProducts().size(), is(2));
+        assertThat(warehouse.getProducts().size(), is(1));
+        assertThat(trash.getProducts().size(), is(1));
+
+        assertTrue(shop.getProducts().contains(pasta2));
+        assertTrue(shop.getProducts().contains(milk));
+        assertTrue(warehouse.getProducts().contains(pasta));
+        assertTrue(trash.getProducts().contains(fish));
+
+        assertThat(milk.getDiscount(), is(50.0));
+    }
 }
