@@ -1,7 +1,7 @@
 package ru.job4j.magnit;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
@@ -19,7 +19,7 @@ public class StoreXML {
     /** XML file to save data. */
     private  File target;
     /** Logger. */
-    private static final Logger LOG = LogManager.getLogger(StoreXML.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StoreXML.class);
 
     /**
      * The constructor creates the object Config.

@@ -1,7 +1,7 @@
 package ru.job4j.magnit;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -18,7 +18,7 @@ import java.io.File;
  */
 public class ConvertXSQT {
     /** Logger. */
-    private static final Logger LOG = LogManager.getLogger(ConvertXSQT.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ConvertXSQT.class);
 
     /**
      * Method converts xml with xsl.

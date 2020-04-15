@@ -1,7 +1,7 @@
 package ru.job4j.magnit;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class StoreSQL implements AutoCloseable {
     /** Logger. */
-    private static final Logger LOG = LogManager.getLogger(StoreSQL.class);
+    private static final Logger LOG = LoggerFactory.getLogger(StoreSQL.class);
     /** The config stores settings for connecting to the database. */
     private final Config config;
     /** Database connection. */

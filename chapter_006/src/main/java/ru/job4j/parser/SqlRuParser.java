@@ -1,7 +1,7 @@
 package ru.job4j.parser;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -50,7 +50,7 @@ public class SqlRuParser implements Job {
     /** Application properties. */
     private Properties properties = new Properties();
     /** Logger. */
-    private static final Logger LOG = LogManager.getLogger(SqlRuParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SqlRuParser.class);
 
     /**
      * Entry point.

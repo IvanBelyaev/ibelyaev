@@ -1,7 +1,7 @@
 package ru.job4j.parser;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +26,7 @@ import java.util.Properties;
  */
 public class DatabaseManager implements AutoCloseable {
     /** Logger. */
-    private static final Logger LOG = LogManager.getLogger(DatabaseManager.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DatabaseManager.class);
     /** Stores application properties. */
     private Properties properties = new Properties();
     /** Database connection. */

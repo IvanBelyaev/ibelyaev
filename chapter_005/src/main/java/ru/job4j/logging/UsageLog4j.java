@@ -1,7 +1,7 @@
 package ru.job4j.logging;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * UsageLog4j.
@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class UsageLog4j {
     /** Logger. */
-    private static final Logger LOG = LogManager.getLogger(UsageLog4j.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     /**
      * Entry point.

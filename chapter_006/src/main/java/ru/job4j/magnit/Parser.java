@@ -1,7 +1,7 @@
 package ru.job4j.magnit;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.SAXParser;
@@ -16,7 +16,7 @@ import java.io.File;
  */
 public class Parser {
     /** Logger. */
-    private static final Logger LOG = LogManager.getLogger(Parser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(Parser.class);
 
     /**
      * Method parses xml-file.
