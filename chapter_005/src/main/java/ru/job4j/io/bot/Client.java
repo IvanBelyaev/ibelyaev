@@ -1,5 +1,8 @@
 package ru.job4j.io.bot;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +23,8 @@ public class Client {
     private final Socket socket;
     /** Standard input. */
     private final Scanner console;
+    /** Logger. */
+    private static final Logger LOG = LoggerFactory.getLogger(Client.class.getName());
 
     /**
      * The constructor creates the object Client.
@@ -57,9 +62,11 @@ public class Client {
      * @param args - arguments. Not used.
      * @throws IOException - input/output exceptions.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try (Socket newSocket = new Socket(InetAddress.getByName("localhost"), 8888)) {
             new Client(newSocket, new Scanner(System.in, StandardCharsets.UTF_8)).start();
+        } catch (IOException e) {
+            LOG.error("Exception in Client.main()", e);
         }
     }
 }
