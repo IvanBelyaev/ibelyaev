@@ -11,6 +11,14 @@
 
     <artifactId>chapter_009</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>ru.job4j</groupId>
+            <artifactId>chapter_004</artifactId>
+            <version>2.0</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
