@@ -42,7 +42,7 @@ public class CountBarrierTest {
         changingCounter.join();
 
         String[] outputStrings = out.toString().split(System.getProperty("line.separator"));
-        assertThat(outputStrings[0], is("count == total"));
-        assertThat(outputStrings[1], is("waitedThread: Useful work!"));
+
+        assertThat(outputStrings[0], is("waitedThread: Useful work!"));
     }
 }

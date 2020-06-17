@@ -40,7 +40,6 @@ public class CountBarrier {
             if (count != total) {
                 count++;
             } else {
-                System.out.println("count == total");
                 monitor.notifyAll();
             }
         }
@@ -51,14 +50,15 @@ public class CountBarrier {
      */
     public void await() {
         synchronized (monitor) {
-            try {
-                monitor.wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            if (count != total) {
+                try {
+                    monitor.wait();
+                } catch (InterruptedException e) {
+                    System.out.println("Thread was interrupted");
+                }
             }
-            if (!Thread.currentThread().isInterrupted()) {
-                doWork();
-            }
+
+            doWork();
         }
     }
 
