@@ -50,15 +50,18 @@ public class CountBarrier {
      */
     public void await() {
         synchronized (monitor) {
-            if (count != total) {
+            while (count != total) {
                 try {
                     monitor.wait();
                 } catch (InterruptedException e) {
                     System.out.println("Thread was interrupted");
+                    Thread.currentThread().interrupt();
+                    break;
                 }
             }
-
-            doWork();
+            if (!Thread.currentThread().isInterrupted()) {
+                doWork();
+            }
         }
     }
 
