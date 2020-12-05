@@ -51,18 +51,23 @@ public class SimpleBlockingQueue<T> {
      * Extract an item from the queue.
      * The method blocks thread if queue is empty.
      * @return first item from the queue.
+     * @throws InterruptedException if any thread interrupted the current thread.
      */
-    public synchronized T poll() {
+    public synchronized T poll() throws InterruptedException {
         T result = null;
-        try {
-            while (queue.size() == 0) {
-                wait();
-            }
-            result = queue.poll();
-            notifyAll();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (queue.size() == 0) {
+            wait();
         }
+        result = queue.poll();
+        notifyAll();
         return result;
+    }
+
+    /**
+     * Check whether the collective empty.
+     * @return true if this collection is empty.
+     */
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
     }
 }

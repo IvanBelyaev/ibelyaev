@@ -31,8 +31,12 @@ public class SimpleBlockingQueueTest {
             }
         });
         Thread consumer = new Thread(() -> {
-            for (int i = 0; i < 3; i++) {
-                result.add(sbq.poll());
+            try {
+                for (int i = 0; i < 3; i++) {
+                    result.add(sbq.poll());
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
 
