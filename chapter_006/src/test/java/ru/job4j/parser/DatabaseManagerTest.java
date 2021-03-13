@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -55,8 +56,10 @@ public class DatabaseManagerTest {
         int numberOfVacancies = databaseManager.getVacancies().size();
         LocalDateTime lastUpdate = LocalDateTime.now();
         databaseManager.updateDB(listOfVacancies, lastUpdate);
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSSSS");
 
         assertThat(databaseManager.getVacancies().size(), is(numberOfVacancies + 1));
-        assertThat(databaseManager.getReadUpDataTime(), is(lastUpdate));
+        assertThat(databaseManager.getReadUpDataTime().format(formatter), is(lastUpdate.format(formatter)));
     }
 }
