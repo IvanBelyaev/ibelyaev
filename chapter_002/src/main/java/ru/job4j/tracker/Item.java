@@ -45,6 +45,8 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private String author;
+
     /**
      * Default constructor.
      */
@@ -62,6 +64,18 @@ public class Item {
         this.name = name;
         this.desctiption = desctiption;
         this.create = create;
+    }
+
+    /**
+     * The constructor creates the object Item.
+     * @param name - the name of the application.
+     * @param desctiption - the description of the application.
+     * @param create - created date.
+     * @param author item author.
+     */
+    public Item(String name, String desctiption, long create, String author) {
+        this(name, desctiption, create);
+        this.author = author;
     }
 
     /**
@@ -138,6 +152,22 @@ public class Item {
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    /**
+     * Gets item author.
+     * @return item author.
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * Sets item author.
+     * @param author item author.
+     */
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     /**
