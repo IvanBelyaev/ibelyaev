@@ -18,15 +18,17 @@ public class Tracker implements ITracker {
     /** Array of storage applications. */
     private List<Item> items = new ArrayList<>();
 
+    /** ID counter. */
+    private long id = 1;
+
     /**
      * The method adds a request.
      * @param item - new application.
      * @return returns a reference to the request or null if add failed.
      */
     public Item add(Item item) {
-        item.setId(this.generateId());
         items.add(item);
-
+        item.setId(id++);
         return item;
     }
 
@@ -35,7 +37,7 @@ public class Tracker implements ITracker {
      * @param item - new information for applications.
      */
     public void update(Item item) {
-        String id = item.getId();
+        long id = item.getId();
         replace(id, item);
     }
 
@@ -44,9 +46,9 @@ public class Tracker implements ITracker {
      * @param id - id of request you want to update
      * @param item - new information for applications.
      */
-    public void replace(String id, Item item) {
+    public void replace(long id, Item item) {
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId().equals(id)) {
+            if (items.get(i).getId() == id) {
                 items.set(i, item);
                 break;
             }
@@ -58,7 +60,7 @@ public class Tracker implements ITracker {
      * @param item - the application you want to delete.
      */
     public void delete(Item item) {
-        String id = item.getId();
+        long id = item.getId();
         delete(id);
     }
 
@@ -66,10 +68,10 @@ public class Tracker implements ITracker {
      * Method removes the application.
      * @param id - id of request you want to delete
      */
-    public void delete(String id) {
+    public void delete(long id) {
         Iterator<Item> iterator = items.iterator();
         while (iterator.hasNext()) {
-            if (iterator.next().getId().equals(id)) {
+            if (iterator.next().getId() == id) {
                 iterator.remove();
                 break;
             }
@@ -104,10 +106,10 @@ public class Tracker implements ITracker {
      * @param id - specific ID.
      * @return returns the request with a specific ID.
      */
-    public Item findById(String id) {
+    public Item findById(long id) {
         Item item = null;
         for (Item elem : items) {
-            if (elem.getId().equals(id)) {
+            if (elem.getId() == id) {
                 item = elem;
                 break;
             }

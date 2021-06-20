@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -60,7 +59,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             connection = DriverManager.getConnection(url, user, pass);
             try (Statement statement = connection.createStatement()) {
                 String sql = "CREATE TABLE IF NOT EXISTS items ("
-                                + "id VARCHAR(14) PRIMARY KEY,"
+                                + "id SERIAL PRIMARY KEY,"
                                 + "name VARCHAR(50) NOT NULL,"
                                 + "description VARCHAR(350) NOT NULL,"
                                 + "create_time TIMESTAMP NOT NULL)";
@@ -82,14 +81,15 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     @Override
     public Item add(Item item) {
         try (PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO items(id, name, description, create_time) VALUES(?, ?, ?, ?)")) {
-            String newID = this.generateId();
-            item.setId(newID);
-            statement.setString(1, newID);
-            statement.setString(2, item.getName());
-            statement.setString(3, item.getDesctiption());
-            statement.setTimestamp(4, new Timestamp(item.getCreate()));
-            statement.executeUpdate();
+                "INSERT INTO items(name, description, create_time) VALUES(?, ?, ?) RETURNING id")) {
+            statement.setString(1, item.getName());
+            statement.setString(2, item.getDesctiption());
+            statement.setTimestamp(3, new Timestamp(item.getCreate()));
+            statement.execute();
+            ResultSet lastItem = statement.getResultSet();
+            lastItem.next();
+            long lastItemId = lastItem.getLong(1);
+            item.setId(lastItemId);
         } catch (SQLException e) {
             LOG.error("Error in the add() method", e);
         }
@@ -102,13 +102,13 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @param item - new information for applications.
      */
     @Override
-    public void replace(String id, Item item) {
+    public void replace(long id, Item item) {
         try (PreparedStatement statement = connection.prepareStatement(
                 "UPDATE items SET name = ?, description = ?, create_time = ? where id = ?")) {
             statement.setString(1, item.getName());
             statement.setString(2, item.getDesctiption());
             statement.setTimestamp(3, new Timestamp(item.getCreate()));
-            statement.setString(4, id);
+            statement.setLong(4, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             LOG.error("Error in the replace() method", e);
@@ -120,9 +120,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @param id - id of request you want to delete
      */
     @Override
-    public void delete(String id) {
+    public void delete(long id) {
         try (PreparedStatement statement = connection.prepareStatement("DELETE FROM items WHERE id = ?")) {
-            statement.setString(1, id);
+            statement.setLong(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             LOG.error("Error in the delete() method", e);
@@ -135,7 +135,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      */
     @Override
     public List<Item> findAll() {
-        List<Item> items = new LinkedList<>();
+        List<Item> items = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM items")) {
                 while (resultSet.next()) {
@@ -175,10 +175,10 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @return returns the request with a specific ID.
      */
     @Override
-    public Item findById(String id) {
+    public Item findById(long id) {
         Item item = null;
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM items WHERE id = ?")) {
-            statement.setString(1, id);
+            statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     item = this.getItem(resultSet);
@@ -219,7 +219,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @throws SQLException - sql exceptions.
      */
     private Item getItem(ResultSet resultSet) throws SQLException {
-        String id = resultSet.getString("id");
+        long id = resultSet.getLong("id");
         String name = resultSet.getString("name");
         String desc = resultSet.getString("description");
         long create = resultSet.getTimestamp("create_time").getTime();

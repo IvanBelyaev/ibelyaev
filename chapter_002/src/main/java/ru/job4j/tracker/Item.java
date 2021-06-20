@@ -1,5 +1,14 @@
 package ru.job4j.tracker;
 
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -8,8 +17,11 @@ import java.util.Objects;
  * @since 14.09.2017
  * @version 1.0
  */
+@Entity
+@Table(name = "items")
 public class Item {
     /** The field contains the counter reviews. */
+    @Transient
     private int commentsCounter = 0;
     /** The maximum number of comments. */
     private static final int MAX_COMMENTS = 10;
@@ -17,13 +29,28 @@ public class Item {
     /** The name of the application. */
     private String name;
     /** The description of the application. */
+    @Column(name = "description")
     private String desctiption;
     /**  Created date. */
-    private long create;
+    @Column(name = "create_time")
+    @Convert(
+            converter = LongTimestampConverter.class,
+            disableConversion = false)
+    private Long create;
     /** Array storage review. */
+    @Transient
     private String[] comments = new String[MAX_COMMENTS];
     /** Field contains a unique identifier. */
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    /**
+     * Default constructor.
+     */
+    public Item() {
+
+    }
 
     /**
      * The constructor creates the object Item.
@@ -77,7 +104,7 @@ public class Item {
      * The method returns the unique identifier.
      * @return returns the unique identifier.
      */
-    public String getId() {
+    public long getId() {
         return this.id;
     }
 
@@ -109,7 +136,7 @@ public class Item {
      * The method sets the new unique identifier date of the application.
      * @param id - new the unique identifier of the application.
      */
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -132,14 +159,26 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return create == item.create
+        return id == item.id
+                && Objects.equals(create, item.create)
                 && Objects.equals(name, item.name)
-                && Objects.equals(desctiption, item.desctiption)
-                && Objects.equals(id, item.id);
+                && Objects.equals(desctiption, item.desctiption);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(name, desctiption, create, id);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{"
+                + "commentsCounter=" + commentsCounter
+                + ", name='" + name + '\''
+                + ", desctiption='" + desctiption + '\''
+                + ", create=" + create
+                + ", comments=" + Arrays.toString(comments)
+                + ", id='" + id + '\''
+                + '}';
     }
 }

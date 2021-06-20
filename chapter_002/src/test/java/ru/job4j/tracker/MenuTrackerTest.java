@@ -32,9 +32,9 @@ public class MenuTrackerTest {
         ITracker tracker = new Tracker();
         Item item = new Item("name", "desc", 1);
         tracker.add(item);
-        String id = item.getId();
+        long id = item.getId();
         Input input = mock(Input.class);
-        when(input.ask(any(String.class))).thenReturn(id);
+        when(input.ask(any(String.class))).thenReturn(String.valueOf(id));
 
         MenuTracker menuTracker = new MenuTracker(input, tracker);
         menuTracker.fillActions();
@@ -54,6 +54,7 @@ public class MenuTrackerTest {
 
         ITracker tracker = new Tracker();
         Input input = mock(Input.class);
+        when(input.ask(any(String.class))).thenReturn("1");
 
         MenuTracker menuTracker = new MenuTracker(input, tracker);
         menuTracker.fillActions();
@@ -106,6 +107,7 @@ public class MenuTrackerTest {
 
         ITracker tracker = new Tracker();
         Input input = mock(Input.class);
+        when(input.ask(any(String.class))).thenReturn("1");
 
         MenuTracker menuTracker = new MenuTracker(input, tracker);
         menuTracker.fillActions();
@@ -124,9 +126,9 @@ public class MenuTrackerTest {
         ITracker tracker = new Tracker();
         Item item = new Item("name", "desc", 1);
         tracker.add(item);
-        String id = item.getId();
+        long id = item.getId();
         Input input = mock(Input.class);
-        when(input.ask(any(String.class))).thenReturn(id).thenReturn("2");
+        when(input.ask(any(String.class))).thenReturn(String.valueOf(id)).thenReturn("2");
 
         MenuTracker menuTracker = new MenuTracker(input, tracker);
         menuTracker.fillActions();

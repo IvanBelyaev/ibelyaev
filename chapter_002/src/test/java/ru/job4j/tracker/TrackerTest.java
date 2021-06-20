@@ -115,10 +115,13 @@ public class TrackerTest {
     public void whenFindByIdThenItemWithUniqueId() {
         Tracker tracker = new Tracker();
         Item item1 = new Item("task", "desc1", 123L);
+        item1.setId(1);
         tracker.add(item1);
         Item item2 = new Item("name", "desc2", 1234L);
+        item1.setId(2);
         tracker.add(item2);
         Item item3 = new Item("task", "desc4", 12345L);
+        item1.setId(3);
         tracker.add(item3);
         Item methodReturns = tracker.findById(item2.getId());
         Item expected = item2;

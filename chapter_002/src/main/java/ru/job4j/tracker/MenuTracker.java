@@ -24,7 +24,7 @@ class EditItem extends BaseAction {
 
     @Override
     public void execute(Input input, ITracker tracker) {
-        String id = input.ask("Enter id: ");
+        long id = Long.parseLong(input.ask("Enter id: "));
         Item item = tracker.findById(id);
         if (item == null) {
             System.out.println("This id does not exist.");
@@ -180,7 +180,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, ITracker tracker) {
-            String id = input.ask("Enter id: ");
+            long id = Long.parseLong(input.ask("Enter id: "));
             Item item = tracker.findById(id);
             if (item == null) {
                 System.out.println("This id does not exist.");
@@ -211,7 +211,7 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, ITracker tracker) {
-            String id = input.ask("Enter id: ");
+            long id = Long.parseLong(input.ask("Enter id: "));
             Item item = tracker.findById(id);
 
             if (item == null) {

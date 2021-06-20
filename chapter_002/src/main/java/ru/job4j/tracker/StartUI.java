@@ -100,7 +100,7 @@ public class StartUI {
      * The method edits the application.
      */
     private void editItem() {
-        String id = this.input.ask("Enter id: ");
+        long id = Long.parseLong(this.input.ask("Enter id: "));
         Item item = this.tracker.findById(id);
         if (item == null) {
             System.out.println("This id does not exist.");
@@ -116,7 +116,7 @@ public class StartUI {
      * Method removes the application.
      */
     private void deleteItem() {
-        String id = this.input.ask("Enter id: ");
+        long id = Long.parseLong(this.input.ask("Enter id: "));
         Item item = this.tracker.findById(id);
         if (item == null) {
             System.out.println("This id does not exist.");
@@ -131,7 +131,7 @@ public class StartUI {
      * Method allows you to view and add comments to the application.
      */
     private void findItemById() {
-        String id = this.input.ask("Enter id: ");
+        long id = Long.parseLong(this.input.ask("Enter id: "));
         Item item = this.tracker.findById(id);
 
         if (item == null) {

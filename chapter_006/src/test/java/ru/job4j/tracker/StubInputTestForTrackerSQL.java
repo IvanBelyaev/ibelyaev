@@ -52,7 +52,7 @@ public class StubInputTestForTrackerSQL {
         ITracker tracker = new TrackerSQL();
         Item item = new Item("name", "desc", 123L);
         tracker.add(item);
-        new StartUI(new StubInput(new String[] {"2", item.getId(), "new name", "new desc", "6"}), tracker).init();
+        new StartUI(new StubInput(new String[] {"2", String.valueOf(item.getId()), "new name", "new desc", "6"}), tracker).init();
         assertThat(tracker.findById(item.getId()).getName(), is("new name"));
     }
 
@@ -68,7 +68,12 @@ public class StubInputTestForTrackerSQL {
         Item item2 = new Item("second", "desc2", 1234L);
         tracker.add(item1);
         tracker.add(item2);
-        new StartUI(new StubInput(new String[] {"3", item1.getId(), "4", item1.getId(), "6"}), tracker).init();
+        new StartUI(
+                new StubInput(
+                        new String[] {"3", String.valueOf(item1.getId()), "4", String.valueOf(item1.getId()), "6"}
+                        ),
+                tracker
+        ).init();
         assertThat(
                 out.toString().split(System.getProperty("line.separator"))[21],
                 is("This id does not exist.")
@@ -85,7 +90,7 @@ public class StubInputTestForTrackerSQL {
         ITracker tracker = new TrackerSQL();
         Item item = new Item("first", "desc1", 123L);
         tracker.add(item);
-        new StartUI(new StubInput(new String[] {"4", item.getId(), "2", "6"}), tracker).init();
+        new StartUI(new StubInput(new String[] {"4", String.valueOf(item.getId()), "2", "6"}), tracker).init();
         assertThat(
                 out.toString().split(System.getProperty("line.separator"))[10],
                 is(String.format("id: %s, name: %s, description: %s, created date: %d",
@@ -104,7 +109,7 @@ public class StubInputTestForTrackerSQL {
         Item item = new Item("name", "desc", 123L);
         tracker.add(item);
         new StartUI(
-                new StubInput(new String[] {"4", item.getId(), "0", "comment1", "0", "comment2", "1", "2", "6"}),
+                new StubInput(new String[] {"4", String.valueOf(item.getId()), "0", "comment1", "0", "comment2", "1", "2", "6"}),
                 tracker
         ).init();
         assertThat(

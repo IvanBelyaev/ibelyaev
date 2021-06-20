@@ -21,13 +21,13 @@ public interface ITracker {
      * @param id - id of request you want to update
      * @param item - new information for applications.
      */
-    void replace(String id, Item item);
+    void replace(long id, Item item);
 
     /**
      * Method removes the application.
      * @param id - id of request you want to delete
      */
-    void delete(String id);
+    void delete(long id);
 
     /**
      * The method returns all applications.
@@ -47,5 +47,5 @@ public interface ITracker {
      * @param id - specific ID.
      * @return returns the request with a specific ID.
      */
-    Item findById(String id);
+    Item findById(long id);
 }
