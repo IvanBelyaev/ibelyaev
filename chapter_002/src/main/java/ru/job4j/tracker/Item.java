@@ -45,6 +45,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /**
+     * Item creator.
+     */
     private String author;
 
     /**
