@@ -1,9 +1,12 @@
 package ru.job4j.auto;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +26,13 @@ public class Model {
      * Name of the model.
      */
     private String name;
+
+    /**
+     * Brand of the model.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     /**
      * Factory method.
@@ -65,5 +75,34 @@ public class Model {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Gets the brand.
+     * @return brand of the model.
+     */
+    public Brand getBrand() {
+        return brand;
+    }
+
+    /**
+     * Sets a brand to the model.
+     * @param brand new brand.
+     */
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    /**
+     * Represents an object as a string.
+     * @return a string representing this object.
+     */
+    @Override
+    public String toString() {
+        return "Model{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", brand=" + brand
+                + '}';
     }
 }

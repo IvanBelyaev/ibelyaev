@@ -31,7 +31,7 @@ public class Brand {
     /**
      * List of the models of the brand.
      */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "brand")
     private List<Model> models = new ArrayList<>();
 
     /**
@@ -51,6 +51,7 @@ public class Brand {
      */
     public void addModel(Model model) {
         this.models.add(model);
+        model.setBrand(this);
     }
 
     /**
@@ -99,5 +100,17 @@ public class Brand {
      */
     public void setModels(List<Model> models) {
         this.models = models;
+    }
+
+    /**
+     * Represents an object as a string.
+     * @return a string representing this object.
+     */
+    @Override
+    public String toString() {
+        return "Brand{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + '}';
     }
 }
