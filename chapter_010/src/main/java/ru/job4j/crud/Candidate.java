@@ -1,10 +1,6 @@
 package ru.job4j.crud;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "candidates")
@@ -18,6 +14,9 @@ public class Candidate {
     private int experience;
 
     private int salary;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private VacanciesDB database;
 
     public static Candidate of(String name, int experience, int salary) {
         Candidate candidate = new Candidate();
@@ -62,6 +61,14 @@ public class Candidate {
         this.salary = salary;
     }
 
+    public VacanciesDB getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(VacanciesDB database) {
+        this.database = database;
+    }
+
     @Override
     public String toString() {
         return "Candidate{" +
@@ -69,6 +76,7 @@ public class Candidate {
                 ", name='" + name + '\'' +
                 ", experience=" + experience +
                 ", salary=" + salary +
+                ", database=" + database +
                 '}';
     }
 }

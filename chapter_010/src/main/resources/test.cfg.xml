@@ -18,5 +18,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
 
         <mapping class="ru.job4j.crud.Candidate" />
+        <mapping class="ru.job4j.crud.Vacancy" />
+        <mapping class="ru.job4j.crud.VacanciesDB" />
     </session-factory>
 </hibernate-configuration>
