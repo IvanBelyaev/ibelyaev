@@ -7,4 +7,6 @@
 <suppressions>
     <suppress checks="[a-zA-Z0-9]*"
               files="./chapter_010/src/main/java/ru/job4j/crud/[a-zA-Z0-9]*.java" />
+    <suppress checks="[a-zA-Z0-9]*"
+              files="./chapter_010/src/main/java/ru/job4j/integration/[a-zA-Z0-9]*.java" />
 </suppressions>
