@@ -195,12 +195,13 @@ public class Item {
         return id == item.id
                 && Objects.equals(create, item.create)
                 && Objects.equals(name, item.name)
-                && Objects.equals(desctiption, item.desctiption);
+                && Objects.equals(desctiption, item.desctiption)
+                && Objects.equals(author, item.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, desctiption, create, id);
+        return Objects.hash(name, desctiption, create, id, author);
     }
 
     @Override
@@ -210,6 +211,7 @@ public class Item {
                 + ", name='" + name + '\''
                 + ", desctiption='" + desctiption + '\''
                 + ", create=" + create
+                + ", author=" + author
                 + ", comments=" + Arrays.toString(comments)
                 + ", id='" + id + '\''
                 + '}';
