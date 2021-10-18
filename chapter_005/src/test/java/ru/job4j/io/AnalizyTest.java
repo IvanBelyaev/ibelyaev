@@ -61,18 +61,18 @@ public class AnalizyTest {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(root + File.separator + "serverLog.txt"))) {
             bw.write("200 10:56:01\n");
             bw.write("200 10:57:01\n");
-            bw.write("400 10:58:01\n");     // down
-            bw.write("200 10:59:01\n");     // up
-            bw.write("500 11:01:02\n");     // down
-            bw.write("200 11:02:02\n");     // up
-            bw.write("400 11:05:02\n");     // down
+            bw.write("400 10:58:01\n");
+            bw.write("200 10:59:01\n");
+            bw.write("500 11:01:02\n");
+            bw.write("200 11:02:02\n");
+            bw.write("400 11:05:02\n");
             bw.write("400 11:06:02\n");
             bw.write("500 11:07:02\n");
             bw.write("500 11:08:02\n");
             bw.write("400 11:09:02\n");
-            bw.write("300 11:10:02\n");     // up
-            bw.write("500 11:11:02\n");     // down
-            bw.write("200 11:12:02\n");     // up
+            bw.write("300 11:10:02\n");
+            bw.write("500 11:11:02\n");
+            bw.write("200 11:12:02\n");
         }
     }
 

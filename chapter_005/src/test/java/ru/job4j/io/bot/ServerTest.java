@@ -1,5 +1,7 @@
 package ru.job4j.io.bot;
 
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import org.junit.Test;
@@ -9,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import com.google.common.base.Joiner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,13 +22,20 @@ import static org.junit.Assert.assertThat;
  * @since 02.10.2019
  * @version 1.0
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ServerTest {
     /** Line separator. */
     private static final String LS = System.lineSeparator();
 
     /**
+     * Socket.
+     */
+    @Mock
+    private Socket socket;
+
+    /**
      * First test.
-     * @throws IOException - input/output exceptions.
+     * @throws IOException - input / output exceptions.
      */
     @Test
     public void whenNoHelloAndExitThenServerSaysWrongQuestionAndStops() throws IOException {
@@ -43,7 +53,7 @@ public class ServerTest {
 
     /**
      * Second test.
-     * @throws IOException - input/output exceptions.
+     * @throws IOException - input / output exceptions.
      */
     @Test
     public void whenHelloAndExitThenServerSaysHelloAndStops() throws IOException {
@@ -61,7 +71,7 @@ public class ServerTest {
 
     /**
      * Third test.
-     * @throws IOException - input/output exceptions.
+     * @throws IOException - input / output exceptions.
      */
     @Test
     public void whenExitThenStopServer() throws IOException {
@@ -74,10 +84,9 @@ public class ServerTest {
      * Method for testing the server.
      * @param in - input.
      * @param out - output.
-     * @throws IOException - input/output exceptions.
+     * @throws IOException - input / output exceptions.
      */
     private void testServer(String in, String out) throws IOException {
-        Socket socket = Mockito.mock(Socket.class);
         ByteArrayInputStream inputStream = new ByteArrayInputStream(in.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Mockito.when(socket.getInputStream()).thenReturn(inputStream);

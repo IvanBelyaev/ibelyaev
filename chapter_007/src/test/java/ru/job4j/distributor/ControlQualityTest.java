@@ -32,7 +32,6 @@ public class ControlQualityTest {
     @Test
     public void whenDistributeThenProductsAreInAppropriateStorage() {
         LocalDate createDate = LocalDate.now().minusDays(10);
-        // Shelf life - 100 days, passed - 10 days.
         Food pasta = new Pasta(
                 "pasta",
                 createDate.plusDays(100),
@@ -40,7 +39,6 @@ public class ControlQualityTest {
                 300,
                 20
         );
-        // Shelf life - 20 days, passed - 10 days.
         Food pasta2 = new Pasta(
                 "pasta2",
                 createDate.plusDays(20),
@@ -48,7 +46,6 @@ public class ControlQualityTest {
                 300,
                 20
         );
-        // Shelf life - 12 days, passed - 10 days.
         Food milk = new Milk(
                 "milk",
                 createDate.plusDays(12),
@@ -56,7 +53,6 @@ public class ControlQualityTest {
                 300,
                 20
         );
-        // Shelf life - 8 days, passed - 10 days.
         Food fish = new Fish(
                 "fish",
                 createDate.plusDays(8),
@@ -92,7 +88,6 @@ public class ControlQualityTest {
     @Test
     public void whenResortThenProductsAreInTheRightStorage() {
         LocalDate createDate = LocalDate.now().minusDays(10);
-        // Shelf life - 100 days, passed - 10 days.
         Food pasta = new Pasta(
                 "pasta",
                 createDate.plusDays(100),
@@ -100,7 +95,6 @@ public class ControlQualityTest {
                 300,
                 20
         );
-        // Shelf life - 20 days, passed - 10 days.
         Food pasta2 = new Pasta(
                 "pasta2",
                 createDate.plusDays(20),
@@ -108,7 +102,6 @@ public class ControlQualityTest {
                 300,
                 20
         );
-        // Shelf life - 12 days, passed - 10 days.
         Food milk = new Milk(
                 "milk",
                 createDate.plusDays(12),
@@ -116,7 +109,6 @@ public class ControlQualityTest {
                 300,
                 20
         );
-        // Shelf life - 8 days, passed - 10 days.
         Food fish = new Fish(
                 "fish",
                 createDate.plusDays(8),

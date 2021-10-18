@@ -15,7 +15,7 @@ public class ArrayDuplicate {
 	 * @return returns array without duplicates.
 	 */
 	public String[] remove(String[] array) {
-		int n = array.length; //the number of different values
+		int n = array.length;
 		for (int i = 0; i < n - 1; i++) {
 			for (int j = i + 1; j < n; j++) {
 				if (array[i].equals(array[j])) {

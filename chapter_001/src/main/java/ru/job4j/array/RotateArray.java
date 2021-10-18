@@ -13,7 +13,7 @@ public class RotateArray {
 	 * @return returns an array rotated 90 degrees clockwise.
 	 */
 	public int[][] rotate(int[][] array) {
-		int n = array.length - 1; //last index
+		int n = array.length - 1;
 		for (int i = 0; i < array.length / 2; i++) {
 			for (int j = 0; j < array.length - array.length / 2; j++) {
 				int temp = array[i][j];

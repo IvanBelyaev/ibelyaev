@@ -92,7 +92,7 @@ public class Directory {
         shell.cd("..");
         assert shell.path().equals("/usr");
 
-        shell.cd("//lib///");
+        shell.cd("./lib/");
         assert shell.path().equals("/lib");
     }
 }

@@ -11,4 +11,6 @@
               files="./chapter_010/src/main/java/ru/job4j/integration/[a-zA-Z0-9]*.java" />
     <suppress checks="[a-zA-Z0-9]*"
               files="./chapter_011/src/main/java/ru/job4j/di/[a-zA-Z0-9]*.java" />
+    <suppress checks="[a-zA-Z0-9]*"
+              files="./auth/src/main/java/ru/job4j/*/[a-zA-Z0-9]*.java" />
 </suppressions>
