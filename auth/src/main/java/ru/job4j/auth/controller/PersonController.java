@@ -2,6 +2,7 @@ package ru.job4j.auth.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.auth.domain.Person;
 import ru.job4j.auth.repository.PersonRepository;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @RestController
-@RequestMapping("/persons")
+@RequestMapping("/person")
 public class PersonController {
     private final PersonRepository persons;
 
@@ -23,6 +24,13 @@ public class PersonController {
     public List<Person> findAll() {
         return StreamSupport.stream(
                 this.persons.findAll().spliterator(), false
+        ).collect(Collectors.toList());
+    }
+
+    @GetMapping("/employeeId/{employeeId}")
+    public List<Person> findAllByEmployeeId(@PathVariable int employeeId) {
+        return StreamSupport.stream(
+                this.persons.findAllByEmployeeId(employeeId).spliterator(), false
         ).collect(Collectors.toList());
     }
 
@@ -54,6 +62,13 @@ public class PersonController {
         Person person = new Person();
         person.setId(id);
         this.persons.delete(person);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/employeeId/{employeeId}")
+    @Transactional
+    public ResponseEntity<Void> deleteByEmployeeId(@PathVariable int employeeId) {
+        this.persons.deleteAllByEmployeeId(employeeId);
         return ResponseEntity.ok().build();
     }
 }

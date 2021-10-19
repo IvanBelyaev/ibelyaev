@@ -44,7 +44,7 @@ public class PersonControllerTest {
         when(personRepository.findAll()).thenReturn(List.of(irina, ivan));
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/persons/")
+                .get("/person/")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -60,7 +60,7 @@ public class PersonControllerTest {
         when(personRepository.findById(1)).thenReturn(java.util.Optional.of(person));
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/persons/1")
+                .get("/person/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", notNullValue()))
@@ -73,7 +73,7 @@ public class PersonControllerTest {
         when(personRepository.findById(1)).thenReturn(java.util.Optional.empty());
 
         mockMvc.perform(MockMvcRequestBuilders
-                .get("/persons/1")
+                .get("/person/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$", notNullValue()))
@@ -88,7 +88,7 @@ public class PersonControllerTest {
 
         when(personRepository.save(person)).thenReturn(person);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/persons/")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/person/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(person));
@@ -106,7 +106,7 @@ public class PersonControllerTest {
 
         when(personRepository.save(person)).thenReturn(person);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/persons/")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/person/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(person));
@@ -121,7 +121,7 @@ public class PersonControllerTest {
 
         doNothing().when(personRepository).delete(person);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/persons/1")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.delete("/person/1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(person));
