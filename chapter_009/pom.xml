@@ -15,17 +15,15 @@
         <artifactId>ibelyaev</artifactId>
     </parent>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>ru.job4j</groupId>
-                <artifactId>chapter_004</artifactId>
-                <version>2.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>ru.job4j</groupId>
+            <artifactId>chapter_004</artifactId>
+            <version>2.0</version>
+        </dependency>
+    </dependencies>
+
 
     <build>
         <plugins>
