@@ -152,11 +152,9 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, ITracker tracker) {
-            List<Item> allItems = tracker.findAll();
-            for (Item item : allItems) {
-                System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
-                        item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
-            }
+            tracker.findAll(item ->
+                    System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
+                            item.getId(), item.getName(), item.getDesctiption(), item.getCreate()));
         }
     }
 

@@ -89,11 +89,9 @@ public class StartUI {
      * Method displays all applications.
      */
     private void showAllItem() {
-        List<Item> allItems = this.tracker.findAll();
-        for (Item item : allItems) {
-            System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
-                    item.getId(), item.getName(), item.getDesctiption(), item.getCreate());
-        }
+        this.tracker.findAll(item ->
+                System.out.printf("id: %s, name: %s, description: %s, created date: %d\n",
+                        item.getId(), item.getName(), item.getDesctiption(), item.getCreate()));
     }
 
     /**

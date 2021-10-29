@@ -130,22 +130,20 @@ public class TrackerSQL implements ITracker, AutoCloseable {
     }
 
     /**
-     * The method returns all applications.
-     * @return returns an array of all applications.
+     * Method returns all items via observer.
+     * @param observe observer.
      */
     @Override
-    public List<Item> findAll() {
-        List<Item> items = new ArrayList<>();
+    public void findAll(Observe<Item> observe) {
         try (Statement statement = connection.createStatement()) {
             try (ResultSet resultSet = statement.executeQuery("SELECT * FROM items")) {
                 while (resultSet.next()) {
-                    items.add(this.getItem(resultSet));
+                    observe.receive(this.getItem(resultSet));
                 }
             }
         } catch (SQLException e) {
             LOG.error("Error in the findAll() method", e);
         }
-        return items;
     }
 
     /**

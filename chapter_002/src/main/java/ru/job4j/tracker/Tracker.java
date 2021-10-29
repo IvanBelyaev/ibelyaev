@@ -79,11 +79,13 @@ public class Tracker implements ITracker {
     }
 
     /**
-     * The method returns all applications.
-     * @return returns an array of all applications.
+     * Method returns all items via observer.
+     * @param observe observer.
      */
-    public List<Item> findAll() {
-        return items;
+    public void findAll(Observe<Item> observe) {
+        for (Item item : items) {
+            observe.receive(item);
+        }
     }
 
     /**

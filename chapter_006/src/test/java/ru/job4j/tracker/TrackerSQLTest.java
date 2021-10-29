@@ -81,7 +81,9 @@ public class TrackerSQLTest {
             Item item2 = new Item("name2", "desc2", 1234L);
             tracker.add(item2);
             tracker.delete(item1.getId());
-            List<Item> methodReturns = tracker.findAll();
+            List<Item> methodReturns = new ArrayList<>();
+            Observe<Item> observe = item -> methodReturns.add(item);
+            tracker.findAll(observe);
 
             ArrayList<Item> expected = new ArrayList<>();
             expected.add(item2);
@@ -101,7 +103,9 @@ public class TrackerSQLTest {
             tracker.add(item1);
             Item item2 = new Item("name2", "desc2", 1234L);
             tracker.add(item2);
-            List<Item> methodReturns = tracker.findAll();
+            List<Item> methodReturns = new ArrayList<>();
+            Observe<Item> observe = item -> methodReturns.add(item);
+            tracker.findAll(observe);
 
             ArrayList<Item> expected = new ArrayList<>();
             expected.add(item1);

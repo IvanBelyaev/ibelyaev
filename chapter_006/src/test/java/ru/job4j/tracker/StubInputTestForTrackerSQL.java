@@ -7,6 +7,7 @@ import java.io.PrintStream;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * StubInputTestForTrackerSQL.
@@ -20,10 +21,17 @@ public class StubInputTestForTrackerSQL {
      */
     @Test
     public void whenUserAddItemThenTrackerHasNewItemWithSameName() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
         ITracker tracker = new TrackerSQL();
-        new StartUI(new StubInput(new String[] {"0", "new item", "desc", "6"}), tracker).init();
+        Item item = new Item("new item", "desc", 1);
+        new StartUI(new StubInput(new String[] {"0", item.getName(), item.getDesctiption(), "1", "6"}), tracker).init();
 
-        assertThat(tracker.findAll().get(0).getName(), is("new item"));
+        assertTrue(
+                out.toString().split(System.getProperty("line.separator"))[21].contains(
+                        String.format(", name: %s, description: %s, created date: ",
+                                item.getName(), item.getDesctiption()
+                )));
     }
 
     /**
